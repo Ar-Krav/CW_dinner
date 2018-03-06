@@ -20,6 +20,8 @@ import ark.cw_dinner.database.tables.ordering.OrderingTable;
 
 public class DBManager extends SQLiteOpenHelper {
 
+    private String TEST_TAG = "DBManager_DEBUG_TEST";
+
     private static final String DB_NAME = "cw_dinner_db";
     private static final int DB_VERSION = 1;
 
@@ -61,6 +63,41 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + AccountsTable.TABLE_NAME);
 
         onCreate(db);
+    }
+
+    /**
+       Methods for working with DB
+     */
+
+    public AccountObject getLoginedUser(String login, String passwd){
+        AccountObject loginedUser = new AccountObject();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT " +
+                            AccountsTable.TABLE_NAME + "." + AccountsTable.FIELD_NAME + ", " +
+                            AccountsTable.TABLE_NAME + "." + AccountsTable.FIELD_LAST_NAME + ", " +
+                            AccountsTable.TABLE_NAME + "." + AccountsTable.FIELD_LOGIN + ", " +
+                            UserTypeTable.TABLE_NAME + "." + UserTypeTable.FIELD_TYPE +
+                       " FROM " + AccountsTable.TABLE_NAME +
+                       " INNER JOIN " + UserTypeTable.TABLE_NAME +
+                               " ON " + UserTypeTable.TABLE_NAME + "." + UserTypeTable.FIELD_ID + " = " + AccountsTable.TABLE_NAME + "." + AccountsTable.FIELD_TYPE +
+                       " WHERE " + AccountsTable.FIELD_LOGIN + " = '" + login + "' AND " + AccountsTable.FIELD_PASSWD + " = '" + passwd + "';";
+
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            do {
+                loginedUser.setName(cursor.getString(0));
+                loginedUser.setLastName(cursor.getString(1));
+                loginedUser.setLogin(cursor.getString(2));
+                loginedUser.setType(cursor.getString(3));
+            }while (cursor.moveToNext());
+
+            return loginedUser;
+        }
+        else {
+            return null;
+        }
     }
 
     public List<String> getAllUsers(){
