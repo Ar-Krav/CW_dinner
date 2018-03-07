@@ -2,8 +2,10 @@ package ark.cw_dinner.launcherpart;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +14,7 @@ import android.widget.Toast;
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.account.AccountObject;
-import ark.cw_dinner.mainpart.AppMainActivity;
+import ark.cw_dinner.mainpart.HomeActivity;
 import ark.cw_dinner.utils.TagsValues;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -30,6 +32,9 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         nameField = (EditText) findViewById(R.id.user_name_field);
         lastNameField = (EditText) findViewById(R.id.user_last_name_field);
         loginField = (EditText) findViewById(R.id.user_login_field);
@@ -37,6 +42,13 @@ public class SignUpActivity extends AppCompatActivity {
 
         signUpBtn = (Button) findViewById(R.id.sign_up_btn);
         signUpBtn.setOnClickListener(getSignUpBtnListener());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        SignUpActivity.this.finish();
+
+        return true;
     }
 
     private View.OnClickListener getSignUpBtnListener(){
@@ -73,7 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
             super.onPostExecute(isUserCreated);
 
             if (isUserCreated){
-                Intent intent = new Intent(SignUpActivity.this, AppMainActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
                     intent.putExtra(TagsValues.LOGINED_USER_EXTRAS, newUser);
 
                 SignUpActivity.this.startActivity(intent);

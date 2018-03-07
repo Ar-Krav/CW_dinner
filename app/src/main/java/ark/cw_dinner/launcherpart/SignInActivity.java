@@ -12,7 +12,7 @@ import android.widget.Toast;
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.account.AccountObject;
-import ark.cw_dinner.mainpart.AppMainActivity;
+import ark.cw_dinner.mainpart.HomeActivity;
 import ark.cw_dinner.utils.TagsValues;
 
 public class SignInActivity extends AppCompatActivity {
@@ -77,7 +77,7 @@ public class SignInActivity extends AppCompatActivity {
             super.onPostExecute(loginedUser);
 
             if (loginedUser != null){
-                Intent intent = new Intent(SignInActivity.this, AppMainActivity.class);
+                Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
                     intent.putExtra(TagsValues.LOGINED_USER_EXTRAS, loginedUser);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 

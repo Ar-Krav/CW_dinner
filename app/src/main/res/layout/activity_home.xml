@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="ark.cw_dinner.mainpart.AppMainActivity">
+    tools:context="ark.cw_dinner.mainpart.HomeActivity">
 
 
     <TextView
