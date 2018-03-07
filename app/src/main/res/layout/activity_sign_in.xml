@@ -37,4 +37,10 @@
         android:layout_height="wrap_content"
         android:text="@string/signin_Hello" />
 
+    <Button
+        android:id="@+id/registrate_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create an account" />
+
 </LinearLayout>

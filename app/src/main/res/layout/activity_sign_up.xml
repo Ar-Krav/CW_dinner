@@ -12,6 +12,45 @@
         android:layout_height="wrap_content"
         android:textSize="24dp"
         android:layout_marginBottom="50dp"
-        android:text="TEST"/>
+        android:text="Create new Account"/>
+
+    <EditText
+        android:id="@+id/user_name_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/signup_name_hint" />
+
+    <EditText
+        android:id="@+id/user_last_name_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/signup_lastname_hint" />
+
+    <EditText
+        android:id="@+id/user_login_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/signin_login_hint" />
+
+    <EditText
+        android:id="@+id/user_passwd_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/signin_passwd_hint"/>
+
+    <Button
+        android:id="@+id/sign_up_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/signup_registrate" />
+
 
 </LinearLayout>

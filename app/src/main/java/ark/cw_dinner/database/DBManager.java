@@ -1,5 +1,6 @@
 package ark.cw_dinner.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,10 +18,11 @@ import ark.cw_dinner.database.tables.account.AccountsTable;
 import ark.cw_dinner.database.tables.meals.MealsTable;
 import ark.cw_dinner.database.tables.mealsmenu.MenuTable;
 import ark.cw_dinner.database.tables.ordering.OrderingTable;
+import ark.cw_dinner.utils.TagsValues;
 
 public class DBManager extends SQLiteOpenHelper {
-
     private String TEST_TAG = "DBManager_DEBUG_TEST";
+
 
     private static final String DB_NAME = "cw_dinner_db";
     private static final int DB_VERSION = 1;
@@ -74,13 +76,11 @@ public class DBManager extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT " +
-                            AccountsTable.TABLE_NAME + "." + AccountsTable.FIELD_NAME + ", " +
-                            AccountsTable.TABLE_NAME + "." + AccountsTable.FIELD_LAST_NAME + ", " +
-                            AccountsTable.TABLE_NAME + "." + AccountsTable.FIELD_LOGIN + ", " +
-                            UserTypeTable.TABLE_NAME + "." + UserTypeTable.FIELD_TYPE +
+                            AccountsTable.FIELD_NAME + ", " +
+                            AccountsTable.FIELD_LAST_NAME + ", " +
+                            AccountsTable.FIELD_LOGIN + ", " +
+                            AccountsTable.FIELD_TYPE +
                        " FROM " + AccountsTable.TABLE_NAME +
-                       " INNER JOIN " + UserTypeTable.TABLE_NAME +
-                               " ON " + UserTypeTable.TABLE_NAME + "." + UserTypeTable.FIELD_ID + " = " + AccountsTable.TABLE_NAME + "." + AccountsTable.FIELD_TYPE +
                        " WHERE " + AccountsTable.FIELD_LOGIN + " = '" + login + "' AND " + AccountsTable.FIELD_PASSWD + " = '" + passwd + "';";
 
 
@@ -90,7 +90,7 @@ public class DBManager extends SQLiteOpenHelper {
                 loginedUser.setName(cursor.getString(0));
                 loginedUser.setLastName(cursor.getString(1));
                 loginedUser.setLogin(cursor.getString(2));
-                loginedUser.setType(cursor.getString(3));
+                loginedUser.setType(cursor.getInt(3));
             }while (cursor.moveToNext());
 
             return loginedUser;
@@ -100,97 +100,19 @@ public class DBManager extends SQLiteOpenHelper {
         }
     }
 
-    public List<String> getAllUsers(){
-        List<String> resultList = new ArrayList<>();
-
-        Log.d("TEST_TAG", "in users");
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT meals.name, days_week.day FROM menu " +
-                "INNER JOIN meals ON meals.id = menu.meal_id " +
-                "INNER JOIN days_week ON days_week.id = menu.week_day_id;";
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (cursor.moveToFirst()){
-            do{
-                resultList.add(cursor.getString(1));
-            }while (cursor.moveToNext());
-        }
-
-        return resultList;
-    }
-
-    public List<String> getAllUserType(){
-        List<String> resultList = new ArrayList<>();
-
-        Log.d("TEST_TAG", "in users");
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + UserTypeTable.TABLE_NAME;
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (cursor.moveToFirst()){
-            do{
-                resultList.add(cursor.getString(1));
-            }while (cursor.moveToNext());
-        }
-
-        return resultList;
-    }
-
-    public List<AccountObject> getDBrawQueryResult(){
-        List<AccountObject> resultList = new ArrayList<>();
-
-        Log.d("TEST_TAG", "in users");
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-
-        String query = "Select " + AccountsTable.TABLE_NAME + "." + AccountsTable.FIELD_NAME +", " + UserTypeTable.TABLE_NAME + "." + UserTypeTable.FIELD_TYPE +" from " + AccountsTable.TABLE_NAME +
-                " INNER JOIN " + UserTypeTable.TABLE_NAME + " ON "+ UserTypeTable.TABLE_NAME + "." + UserTypeTable.FIELD_ID + " = " + AccountsTable.TABLE_NAME + "." + AccountsTable.FIELD_TYPE + ";";
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (cursor.moveToFirst()){
-            do{
-                AccountObject ao = new AccountObject();
-                ao.setName(cursor.getString(0));
-                ao.setType(cursor.getString(1));
-                resultList.add(ao);
-            }while (cursor.moveToNext());
-        }
-
-        return resultList;
-    }
-
-    /*public void addUSerInfo(String userName){
+    public Boolean insertNewAccount(AccountObject userInfo){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-            contentValues.put(DB_TABLE_FIELD_NAME, userName);
+            contentValues.put(AccountsTable.FIELD_NAME, userInfo.getName());
+            contentValues.put(AccountsTable.FIELD_LAST_NAME, userInfo.getLastName());
+            contentValues.put(AccountsTable.FIELD_LOGIN, userInfo.getLogin());
+            contentValues.put(AccountsTable.FIELD_PASSWD, userInfo.getPasswd());
+            contentValues.put(AccountsTable.FIELD_TYPE, TagsValues.ACCOUNT_TYPE_USER);
 
-        db.insert(DB_TABLE_NAME, null, contentValues);
+        Boolean isAccountCreated = db.insert(AccountsTable.TABLE_NAME, null, contentValues) > 0;
         db.close();
-    }*/
 
-    /*public List<String> getAllUsers(){
-        List<String> resultList = new ArrayList<>();
-
-        Log.d("TEST_TAG", "in users");
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + DB_TABLE_NAME;
-
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (cursor.moveToFirst()){
-            do{
-                resultList.add(cursor.getString(1));
-            }while (cursor.moveToNext());
-        }
-
-        return resultList;
-    }*/
+        return isAccountCreated;
+    }
 }

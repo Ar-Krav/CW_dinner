@@ -16,7 +16,7 @@ public class AccountsTable {
             FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT  NOT NULL," +
             FIELD_NAME + " varchar(50) NOT NULL," +
             FIELD_LAST_NAME + " varchar(50) NOT NULL," +
-            FIELD_LOGIN + " varchar(20) NOT NULL," +
+            FIELD_LOGIN + " varchar(20) NOT NULL UNIQUE," +
             FIELD_PASSWD + " varchar(30) NOT NULL," +
             FIELD_TYPE + " INTEGER NOT NULL," +
             "FOREIGN KEY ("+ FIELD_TYPE +") REFERENCES "+ UserTypeTable.TABLE_NAME +" ("+ UserTypeTable.FIELD_ID +") ON DELETE NO ACTION ON UPDATE CASCADE);";

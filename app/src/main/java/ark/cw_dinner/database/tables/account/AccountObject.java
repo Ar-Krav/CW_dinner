@@ -6,15 +6,25 @@ public class AccountObject implements Serializable{
     private String name;
     private String lastName;
     private String login;
-    private String type;
+    private String passwd;
+    private int typeID;
 
     public AccountObject(){
     }
 
-    public AccountObject(String name, String lastName, String type) {
+    public AccountObject(String name, String lastName, String login, String passwd) {
         this.name = name;
         this.lastName = lastName;
-        this.type = type;
+        this.login = login;
+        this.passwd = passwd;
+    }
+
+    public AccountObject(String name, String lastName, String login, String passwd, int typeID) {
+        this.name = name;
+        this.lastName = lastName;
+        this.login = login;
+        this.passwd = passwd;
+        this.typeID = typeID;
     }
 
     public String getName() {
@@ -41,11 +51,19 @@ public class AccountObject implements Serializable{
         this.login = login;
     }
 
-    public String getType() {
-        return type;
+    public String getPasswd() {
+        return passwd;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
+
+    public int getType() {
+        return typeID;
+    }
+
+    public void setType(int type) {
+        this.typeID = type;
     }
 }
