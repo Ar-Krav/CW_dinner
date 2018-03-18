@@ -20,7 +20,8 @@
         <activity android:name=".launcherpart.SignUpActivity"
                   android:noHistory="true"/>
 
-        <activity android:name=".mainpart.HomeActivity"/>
+        <activity android:name=".mainpart.BasicActivity"
+                  android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
 </manifest>

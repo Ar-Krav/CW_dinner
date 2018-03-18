@@ -1,4 +1,7 @@
 <resources>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
     <string name="app_name">CW_dinner</string>
     <string name="signin_Hello">SIGN IN</string>
     <string name="signin_passwd_hint">Password</string>
@@ -6,4 +9,14 @@
     <string name="signup_name_hint">Name</string>
     <string name="signup_lastname_hint">Last name</string>
     <string name="signup_registrate">Create</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_ordering">Ordering</string>
+    <string name="nav_menu">Menu</string>
+    <string name="nav_history">History</string>
+    <string name="nav_about">About</string>
+    <string name="nav_faq">F.A.Q</string>
+    <string name="nav_admin_panel">Admin panel</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

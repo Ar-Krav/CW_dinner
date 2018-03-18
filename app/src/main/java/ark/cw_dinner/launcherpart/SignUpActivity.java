@@ -14,7 +14,7 @@ import android.widget.Toast;
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.account.AccountObject;
-import ark.cw_dinner.mainpart.HomeActivity;
+import ark.cw_dinner.mainpart.BasicActivity;
 import ark.cw_dinner.utils.TagsValues;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -85,7 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
             super.onPostExecute(isUserCreated);
 
             if (isUserCreated){
-                Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                Intent intent = new Intent(SignUpActivity.this, BasicActivity.class);
                     intent.putExtra(TagsValues.LOGINED_USER_EXTRAS, newUser);
 
                 SignUpActivity.this.startActivity(intent);
