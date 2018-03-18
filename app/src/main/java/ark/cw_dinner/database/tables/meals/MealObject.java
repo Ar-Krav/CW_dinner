@@ -6,6 +6,9 @@ public class MealObject {
     private String description;
     private String type;
 
+    public MealObject(){
+    }
+
     public MealObject(String name, int cost, String description, String type) {
         this.name = name;
         this.cost = cost;

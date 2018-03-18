@@ -15,7 +15,9 @@ import ark.cw_dinner.database.tables.MealsTypeTable;
 import ark.cw_dinner.database.tables.UserTypeTable;
 import ark.cw_dinner.database.tables.account.AccountObject;
 import ark.cw_dinner.database.tables.account.AccountsTable;
+import ark.cw_dinner.database.tables.meals.MealObject;
 import ark.cw_dinner.database.tables.meals.MealsTable;
+import ark.cw_dinner.database.tables.mealsmenu.MenuObject;
 import ark.cw_dinner.database.tables.mealsmenu.MenuTable;
 import ark.cw_dinner.database.tables.ordering.OrderingTable;
 import ark.cw_dinner.utils.TagsValues;
@@ -114,5 +116,68 @@ public class DBManager extends SQLiteOpenHelper {
         db.close();
 
         return isAccountCreated;
+    }
+
+    public List<MenuObject> getMealsMenu(){
+        String query = getQueryAllMealsMenu();
+        return getListMenuItems(query);
+    }
+
+    public List<MenuObject> getMealsMenuByDay(int dayOfWeek){
+        String query = getQueryAllMealsMenu() +
+                        " HAVING " + MenuTable.TABLE_NAME + "." + MenuTable.FIELD_WEEK_DAY_ID + " = " + dayOfWeek;
+
+        return getListMenuItems(query);
+    }
+
+    public List<MenuObject> getMealsMenuByType(int mealType){
+        String query = getQueryAllMealsMenu() +
+                        " HAVING " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE + " = " + mealType;
+
+        return getListMenuItems(query);
+    }
+
+    private String getQueryAllMealsMenu(){
+        return "SELECT " +
+                        MealsTable.TABLE_NAME + "." + MealsTable.FIELD_NAME + ", " +
+                        MealsTable.TABLE_NAME + "." + MealsTable.FIELD_COST + ", " +
+                        MealsTable.TABLE_NAME + "." + MealsTable.FIELD_DESCRIPTION + ", " +
+                        MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE + ", " +
+                        DaysOfWeekTable.TABLE_NAME + "." + DaysOfWeekTable.FIELD_DAY +
+                " FROM " + MenuTable.TABLE_NAME +
+                " INNER JOIN " + MealsTable.TABLE_NAME +
+                        " ON " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_ID + " = " + MenuTable.TABLE_NAME + "." + MenuTable.FIELD_MEAL_ID +
+                " INNER JOIN " + DaysOfWeekTable.TABLE_NAME +
+                        " ON " + DaysOfWeekTable.TABLE_NAME + "." + DaysOfWeekTable.FIELD_ID + " = " + MenuTable.TABLE_NAME + "." + MenuTable.FIELD_WEEK_DAY_ID +
+                " GROUP BY " + MenuTable.TABLE_NAME + "." + MenuTable.FIELD_MEAL_ID;
+    }
+
+    private List<MenuObject> getListMenuItems(String query){
+        List<MenuObject> mealsMenu = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            do {
+                MenuObject menuObject = new MenuObject();
+                MealObject mealObject = new MealObject();
+
+                mealObject.setName(cursor.getString(0));
+                mealObject.setCost(cursor.getInt(1));
+                mealObject.setDescription(cursor.getString(2));
+                mealObject.setType(cursor.getString(3));
+
+                menuObject.setMeal(mealObject);
+                menuObject.setDayName(cursor.getString(4));
+
+                mealsMenu.add(menuObject);
+            }while (cursor.moveToNext());
+
+            return mealsMenu;
+        }
+        else {
+            return null;
+        }
     }
 }

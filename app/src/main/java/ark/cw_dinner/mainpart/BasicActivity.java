@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import ark.cw_dinner.R;
+import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.account.AccountObject;
+import ark.cw_dinner.database.tables.mealsmenu.MenuObject;
 import ark.cw_dinner.mainpart.foodmenu.FoodMenuFragment;
 import ark.cw_dinner.mainpart.fragments.HistoryFragment;
 import ark.cw_dinner.mainpart.fragments.HomeFragment;
@@ -63,6 +65,13 @@ public class BasicActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragment_area, new HomeFragment())
                 .commit();
+
+
+        DBManager dbManager = new DBManager(this);
+        for (MenuObject menuObject : dbManager.getMealsMenuByType(1)){
+            Log.d(TEST_TAG, "onCreate: " + menuObject.getMeal().getName());
+            Log.d(TEST_TAG, "onCreate: " + menuObject.getDayName());
+        }
     }
 
 

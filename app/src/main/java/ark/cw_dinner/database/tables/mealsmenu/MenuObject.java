@@ -1,22 +1,27 @@
 package ark.cw_dinner.database.tables.mealsmenu;
 
+import ark.cw_dinner.database.tables.meals.MealObject;
+
 public class MenuObject {
-    private String mealName;
+    private MealObject meal;
     private String dayName;
     private Boolean isEnabled;
 
-    public MenuObject(String mealName, String dayName, Boolean isEnabled) {
-        this.mealName = mealName;
+    public MenuObject() {
+    }
+
+    public MenuObject(MealObject meal, String dayName, Boolean isEnabled) {
+        this.meal = meal;
         this.dayName = dayName;
         this.isEnabled = isEnabled;
     }
 
-    public String getMealName() {
-        return mealName;
+    public MealObject getMeal() {
+        return meal;
     }
 
-    public void setMealName(String mealName) {
-        this.mealName = mealName;
+    public void setMeal(MealObject mealName) {
+        this.meal = mealName;
     }
 
     public String getDayName() {
