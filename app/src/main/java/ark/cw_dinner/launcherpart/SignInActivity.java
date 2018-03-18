@@ -64,8 +64,13 @@ public class SignInActivity extends AppCompatActivity {
 
         @Override
         protected AccountObject doInBackground(String... strings) {
+            /*
+            TODO change back!!!!!!
             String login = strings[0];
-            String passwd = strings[1];
+            String passwd = strings[1];*/
+
+            String login = "ark";
+            String passwd = "12345ark";
 
             DBManager dbManager = new DBManager(SignInActivity.this);
 

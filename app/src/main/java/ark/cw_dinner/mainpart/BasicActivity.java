@@ -1,8 +1,11 @@
 package ark.cw_dinner.mainpart;
 
 import android.content.res.Configuration;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,18 +16,24 @@ import android.view.MenuItem;
 
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.tables.account.AccountObject;
+import ark.cw_dinner.mainpart.foodmenu.FoodMenuFragment;
+import ark.cw_dinner.mainpart.fragments.HistoryFragment;
+import ark.cw_dinner.mainpart.fragments.HomeFragment;
+import ark.cw_dinner.mainpart.fragments.OrderingFragment;
 import ark.cw_dinner.utils.TagsValues;
 
 public class BasicActivity extends AppCompatActivity {
     String TEST_TAG = "AppMainActivity_DEBUG_TEST";
 
     Boolean isUserAdmin;
+    Fragment selectedFragment;
 
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
     private ActionBarDrawerToggle drawerToggle;
     private MenuItem prewiousSelectedItem;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +47,8 @@ public class BasicActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle("Home");
 
+        mHandler = new Handler();
+
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(this,mDrawer,toolbar,R.string.drawer_open,R.string.drawer_close);
         mDrawer.addDrawerListener(drawerToggle);
@@ -48,6 +59,10 @@ public class BasicActivity extends AppCompatActivity {
         prewiousSelectedItem = nvDrawer.getMenu().getItem(0);
         nvDrawer.getMenu().findItem(R.id.admin_area).setVisible(isUserAdmin);
 
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_area, new HomeFragment())
+                .commit();
     }
 
 
@@ -61,8 +76,51 @@ public class BasicActivity extends AppCompatActivity {
                 prewiousSelectedItem = item;
 
                 item.setChecked(true);
-
                 setTitle(item.getTitle());
+
+                switch (item.getItemId()){
+                    case R.id.nav_home:{
+                        selectedFragment = new HomeFragment();
+                        break;
+                    }
+
+                    case R.id.nav_ordering:{
+                        selectedFragment = new OrderingFragment();
+                        break;
+                    }
+
+                    case R.id.nav_food_menu:{
+                        selectedFragment = new FoodMenuFragment();
+                        break;
+                    }
+
+                    case R.id.nav_ordering_history:{
+                        selectedFragment = new HistoryFragment();
+                        break;
+                    }
+                    default: selectedFragment = null;
+                }
+
+                Runnable mPendingRunnable = null;
+                if (selectedFragment != null){
+                    mPendingRunnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.setCustomAnimations(android.R.anim.fade_in,
+                                    android.R.anim.fade_out);
+                            fragmentTransaction.replace(R.id.fragment_area, selectedFragment);
+                            fragmentTransaction.addToBackStack(null);
+                            fragmentTransaction.commit();
+                        }
+                    };
+                }
+
+                // If mPendingRunnable is not null, then add to the message queue
+                if (mPendingRunnable != null) {
+                    mHandler.post(mPendingRunnable);
+                }
+
                 mDrawer.closeDrawers();
 
                 return true;
