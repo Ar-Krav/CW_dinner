@@ -14,7 +14,7 @@ public class MealsTable {
     public final static String CREATION_QUERY= "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME +"(" +
             FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
             FIELD_NAME + " varchar(100) NOT NULL DEFAULT ''," +
-            FIELD_COST + " INTEGER(10) NOT NULL DEFAULT '0'," +
+            FIELD_COST + " INTEGER(10) NOT NULL DEFAULT '0'," + /*TODO fix to decimal for coins!*/
             FIELD_DESCRIPTION + " varchar(255) DEFAULT ''," +
             FIELD_TYPE + " INTEGER(10) NOT NULL," +
             "  FOREIGN KEY ("+ FIELD_TYPE +") REFERENCES "+ MealsTypeTable.TABLE_NAME +" ("+ MealsTypeTable.FIELD_ID +") ON UPDATE CASCADE );";

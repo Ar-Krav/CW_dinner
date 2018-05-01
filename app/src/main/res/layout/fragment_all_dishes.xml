@@ -4,10 +4,9 @@
     android:layout_height="match_parent"
     tools:context="ark.cw_dinner.mainpart.foodmenu.AllDishesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="ALL" />
-
+        />
 </FrameLayout>
