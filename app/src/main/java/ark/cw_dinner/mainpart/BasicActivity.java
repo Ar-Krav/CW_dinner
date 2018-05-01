@@ -67,9 +67,13 @@ public class BasicActivity extends AppCompatActivity {
                 .commit();
 
 
+        /**
+        * DB TEST DEBUG
+        * */
         DBManager dbManager = new DBManager(this);
-        for (MenuObject menuObject : dbManager.getMealsMenuByType(1)){
+        for (MenuObject menuObject : dbManager.getMealsMenu()){
             Log.d(TEST_TAG, "onCreate: " + menuObject.getMeal().getName());
+            Log.d(TEST_TAG, "onCreate: " + menuObject.getMeal().getType());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getDayName());
         }
     }

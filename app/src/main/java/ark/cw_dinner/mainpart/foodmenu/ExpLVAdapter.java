@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import ark.cw_dinner.R;
+import ark.cw_dinner.database.tables.meals.MealObject;
 
 /**
  * Created by Ar-Krav on 25.03.2018.
@@ -21,9 +22,9 @@ public class ExpLVAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private List<String> listDataHeader;
-    private HashMap<String, List<String>> childData;
+    private HashMap<String, List<MealObject>> childData;
 
-    public ExpLVAdapter(Context context, List<String> listDataHeader, HashMap<String, List<String>> childData) {
+    public ExpLVAdapter(Context context, List<String> listDataHeader, HashMap<String, List<MealObject>> childData) {
         this.context = context;
         this.listDataHeader = listDataHeader;
         this.childData = childData;
@@ -87,21 +88,23 @@ public class ExpLVAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        String textToDisplay = childData.get(listDataHeader.get(groupPosition)).get(childPosition);
-
-        Log.d("TEST_LOG", "getGroupView: in child");
-
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.fmenu_list_item, null);
-
-            Log.d("TEST_LOG", "getGroupView: in child_id");
         }
 
-        TextView messageField = (TextView) convertView.findViewById(R.id.nameLabel);
-        messageField.setText(textToDisplay);
+        MealObject mealObj = childData.get(listDataHeader.get(groupPosition)).get(childPosition);
 
-        Log.d("TEST_LOG", "getGroupView: in child_: " + textToDisplay);
+        TextView nameLabel = (TextView) convertView.findViewById(R.id.nameLabel);
+            nameLabel.setText(mealObj.getName());
+
+        TextView priceLabel = (TextView) convertView.findViewById(R.id.priceLabel);
+            priceLabel.setText("" + mealObj.getCost());
+
+        TextView daysLabel = (TextView) convertView.findViewById(R.id.daysAvailableLabel);
+
+        TextView descriptionLable = (TextView) convertView.findViewById(R.id.descriptionLabel);
+            descriptionLable.setText(mealObj.getDescription());
 
         return convertView;
     }

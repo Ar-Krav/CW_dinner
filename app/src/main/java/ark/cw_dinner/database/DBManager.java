@@ -118,6 +118,40 @@ public class DBManager extends SQLiteOpenHelper {
         return isAccountCreated;
     }
 
+    public List<MealObject> getMeals(){
+        List<MealObject> mealObjectList = new ArrayList<>();
+
+        String query = "SELECT " +
+                            MealsTable.TABLE_NAME + "." + MealsTable.FIELD_NAME + ", " +
+                            MealsTable.TABLE_NAME + "." + MealsTable.FIELD_COST + ", " +
+                            MealsTable.TABLE_NAME + "." + MealsTable.FIELD_DESCRIPTION + ", " +
+                            MealsTypeTable.TABLE_NAME + "." + MealsTypeTable.FIELD_NAME +
+                       " FROM " + MealsTable.TABLE_NAME +
+                       " INNER JOIN " + MealsTypeTable.TABLE_NAME +
+                               " ON " + MealsTypeTable.TABLE_NAME + "." + MealsTypeTable.FIELD_ID + " = " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            do {
+                MealObject mealObject = new MealObject();
+
+                mealObject.setName(cursor.getString(0));
+                mealObject.setCost(cursor.getInt(1));
+                mealObject.setDescription(cursor.getString(2));
+                mealObject.setType(cursor.getString(3));
+
+                mealObjectList.add(mealObject);
+            }while (cursor.moveToNext());
+
+            return mealObjectList;
+        }
+        else {
+            return null;
+        }
+    }
+
     public List<MenuObject> getMealsMenu(){
         String query = getQueryAllMealsMenu();
         return getListMenuItems(query);
@@ -130,25 +164,46 @@ public class DBManager extends SQLiteOpenHelper {
         return getListMenuItems(query);
     }
 
-    public List<MenuObject> getMealsMenuByType(int mealType){
+/*    public List<MenuObject> getMealsMenuByType(int mealType){
         String query = getQueryAllMealsMenu() +
                         " HAVING " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE + " = " + mealType;
 
         return getListMenuItems(query);
-    }
+    }*/
+
+    /*public List<String> getMealsTypeNames(){
+        List<String> mealsTypeList = new ArrayList<>();
+
+        String query = "SELECT " + MealsTypeTable.FIELD_NAME + " FROM" + MealsTypeTable.TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query,null);
+
+        if (cursor.moveToFirst()){
+            do {
+                mealsTypeList.add(cursor.getString(0));
+            }while (cursor.moveToNext());
+
+            return mealsTypeList;
+        }
+        else {
+            return null;
+        }
+    }*/
 
     private String getQueryAllMealsMenu(){
         return "SELECT " +
                         MealsTable.TABLE_NAME + "." + MealsTable.FIELD_NAME + ", " +
                         MealsTable.TABLE_NAME + "." + MealsTable.FIELD_COST + ", " +
                         MealsTable.TABLE_NAME + "." + MealsTable.FIELD_DESCRIPTION + ", " +
-                        MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE + ", " +
+                        MealsTypeTable.TABLE_NAME + "." + MealsTypeTable.FIELD_NAME + ", " +
                         DaysOfWeekTable.TABLE_NAME + "." + DaysOfWeekTable.FIELD_DAY +
                 " FROM " + MenuTable.TABLE_NAME +
                 " INNER JOIN " + MealsTable.TABLE_NAME +
                         " ON " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_ID + " = " + MenuTable.TABLE_NAME + "." + MenuTable.FIELD_MEAL_ID +
                 " INNER JOIN " + DaysOfWeekTable.TABLE_NAME +
                         " ON " + DaysOfWeekTable.TABLE_NAME + "." + DaysOfWeekTable.FIELD_ID + " = " + MenuTable.TABLE_NAME + "." + MenuTable.FIELD_WEEK_DAY_ID +
+                " INNER JOIN " + MealsTypeTable.TABLE_NAME +
+                        " ON " + MealsTypeTable.TABLE_NAME + "." + MealsTypeTable.FIELD_ID + " = " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE +
                 " GROUP BY " + MenuTable.TABLE_NAME + "." + MenuTable.FIELD_MEAL_ID;
     }
 
