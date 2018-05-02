@@ -1,10 +1,14 @@
 package ark.cw_dinner.database.tables.meals;
 
+import java.util.List;
+
 public class MealObject {
+    private int mealId;
     private String name;
     private int cost;
     private String description;
     private String type;
+    private List<String> availableInDays;
 
     public MealObject(){
     }
@@ -14,6 +18,14 @@ public class MealObject {
         this.cost = cost;
         this.description = description;
         this.type = type;
+    }
+
+    public int getMealId() {
+        return mealId;
+    }
+
+    public void setMealId(int mealId) {
+        this.mealId = mealId;
     }
 
     public String getName() {
@@ -46,5 +58,13 @@ public class MealObject {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<String> getAvailableInDays() {
+        return availableInDays;
+    }
+
+    public void setAvailableInDays(List<String> availableInDays) {
+        this.availableInDays = availableInDays;
     }
 }

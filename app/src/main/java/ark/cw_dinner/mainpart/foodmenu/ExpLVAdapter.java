@@ -1,6 +1,7 @@
 package ark.cw_dinner.mainpart.foodmenu;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,6 +103,7 @@ public class ExpLVAdapter extends BaseExpandableListAdapter {
             priceLabel.setText("" + mealObj.getCost());
 
         TextView daysLabel = (TextView) convertView.findViewById(R.id.daysAvailableLabel);
+            daysLabel.setText(TextUtils.join(", ", mealObj.getAvailableInDays()));
 
         TextView descriptionLable = (TextView) convertView.findViewById(R.id.descriptionLabel);
             descriptionLable.setText(mealObj.getDescription());

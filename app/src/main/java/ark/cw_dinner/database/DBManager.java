@@ -192,6 +192,7 @@ public class DBManager extends SQLiteOpenHelper {
 
     private String getQueryAllMealsMenu(){
         return "SELECT " +
+                        MenuTable.TABLE_NAME + "." + MenuTable.FIELD_ID + ", " +
                         MealsTable.TABLE_NAME + "." + MealsTable.FIELD_NAME + ", " +
                         MealsTable.TABLE_NAME + "." + MealsTable.FIELD_COST + ", " +
                         MealsTable.TABLE_NAME + "." + MealsTable.FIELD_DESCRIPTION + ", " +
@@ -203,8 +204,7 @@ public class DBManager extends SQLiteOpenHelper {
                 " INNER JOIN " + DaysOfWeekTable.TABLE_NAME +
                         " ON " + DaysOfWeekTable.TABLE_NAME + "." + DaysOfWeekTable.FIELD_ID + " = " + MenuTable.TABLE_NAME + "." + MenuTable.FIELD_WEEK_DAY_ID +
                 " INNER JOIN " + MealsTypeTable.TABLE_NAME +
-                        " ON " + MealsTypeTable.TABLE_NAME + "." + MealsTypeTable.FIELD_ID + " = " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE +
-                " GROUP BY " + MenuTable.TABLE_NAME + "." + MenuTable.FIELD_MEAL_ID;
+                        " ON " + MealsTypeTable.TABLE_NAME + "." + MealsTypeTable.FIELD_ID + " = " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE;
     }
 
     private List<MenuObject> getListMenuItems(String query){
@@ -218,13 +218,14 @@ public class DBManager extends SQLiteOpenHelper {
                 MenuObject menuObject = new MenuObject();
                 MealObject mealObject = new MealObject();
 
-                mealObject.setName(cursor.getString(0));
-                mealObject.setCost(cursor.getInt(1));
-                mealObject.setDescription(cursor.getString(2));
-                mealObject.setType(cursor.getString(3));
+                mealObject.setMealId(cursor.getInt(0));
+                mealObject.setName(cursor.getString(1));
+                mealObject.setCost(cursor.getInt(2));
+                mealObject.setDescription(cursor.getString(3));
+                mealObject.setType(cursor.getString(4));
 
                 menuObject.setMeal(mealObject);
-                menuObject.setDayName(cursor.getString(4));
+                menuObject.setDayName(cursor.getString(5));
 
                 mealsMenu.add(menuObject);
             }while (cursor.moveToNext());
