@@ -1,6 +1,7 @@
 package ark.cw_dinner.launcherpart;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -82,6 +83,8 @@ public class SignInActivity extends AppCompatActivity {
             super.onPostExecute(loginedUser);
 
             if (loginedUser != null){
+                saveInSharedPreference(TagsValues.LOGINED_USER_PREFERENCES, loginedUser.getUserId());
+
                 Intent intent = new Intent(SignInActivity.this, BasicActivity.class);
                     intent.putExtra(TagsValues.LOGINED_USER_EXTRAS, loginedUser);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -93,5 +96,12 @@ public class SignInActivity extends AppCompatActivity {
                 Toast.makeText(SignInActivity.this, "Login or password are incorrect", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void saveInSharedPreference(String tagValue, int savedValue){
+        SharedPreferences loginedUserIdPreference = getPreferences(MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = loginedUserIdPreference.edit();
+        prefEditor.putInt(tagValue, savedValue);
+        prefEditor.apply();
     }
 }

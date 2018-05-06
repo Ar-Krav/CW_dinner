@@ -1,15 +1,19 @@
 package ark.cw_dinner.database.tables.ordering;
 
+import ark.cw_dinner.database.tables.meals.MealObject;
+
 public class OrderingObject {
     private String userName;
-    private String mealName;
+    private MealObject meal;
     private int value;
     private int cost;
     private String date;
 
-    public OrderingObject(String userName, String mealName, int value, int cost, String date) {
+    public OrderingObject() {}
+
+    public OrderingObject(String userName, MealObject meal, int value, int cost, String date) {
         this.userName = userName;
-        this.mealName = mealName;
+        this.meal = meal;
         this.value = value;
         this.cost = cost;
         this.date = date;
@@ -23,12 +27,12 @@ public class OrderingObject {
         this.userName = userName;
     }
 
-    public String getMealName() {
-        return mealName;
+    public MealObject getMeal() {
+        return meal;
     }
 
-    public void setMealName(String mealName) {
-        this.mealName = mealName;
+    public void setMeal(MealObject meal) {
+        this.meal = meal;
     }
 
     public int getValue() {

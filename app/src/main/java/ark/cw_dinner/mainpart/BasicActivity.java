@@ -18,6 +18,7 @@ import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.account.AccountObject;
 import ark.cw_dinner.database.tables.mealsmenu.MenuObject;
+import ark.cw_dinner.database.tables.ordering.OrderingObject;
 import ark.cw_dinner.mainpart.foodmenu.FoodMenuFragment;
 import ark.cw_dinner.mainpart.fragments.HistoryFragment;
 import ark.cw_dinner.mainpart.fragments.HomeFragment;
@@ -70,12 +71,13 @@ public class BasicActivity extends AppCompatActivity {
         /**
         * DB TEST DEBUG
         * */
-        DBManager dbManager = new DBManager(this);
-        for (MenuObject menuObject : dbManager.getMealsMenu()){
-            Log.d(TEST_TAG, "onCreate: " + menuObject.getMeal().getName());
-            Log.d(TEST_TAG, "onCreate: " + menuObject.getMeal().getType());
-            Log.d(TEST_TAG, "onCreate: " + menuObject.getDayName());
-        }
+        /*DBManager dbManager = new DBManager(this);
+        for (OrderingObject menuObject : dbManager.getUserOrderingHistory(1)){
+            Log.d(TEST_TAG, "onCreate: " + menuObject.getMeal());
+            Log.d(TEST_TAG, "onCreate: " + menuObject.getDate());
+            Log.d(TEST_TAG, "onCreate: " + menuObject.getCost());
+            Log.d(TEST_TAG, "onCreate: " + menuObject.getValue());
+        }*/
     }
 
 

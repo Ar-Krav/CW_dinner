@@ -22,5 +22,4 @@ public class OrderingTable {
             FIELD_ORDER_DATE + " date NOT NULL," +
             "FOREIGN KEY ("+ FIELD_MEAL_ID +") REFERENCES "+ MealsTable.TABLE_NAME +" ("+ MealsTable.FIELD_ID +") ON DELETE NO ACTION ON UPDATE CASCADE," +
             "FOREIGN KEY ("+ FIELD_USER_ID +") REFERENCES "+ AccountsTable.TABLE_NAME +" ("+ AccountsTable.FIELD_ID +") ON DELETE NO ACTION ON UPDATE CASCADE );";
-
 }

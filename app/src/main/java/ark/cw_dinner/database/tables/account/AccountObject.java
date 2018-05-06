@@ -3,6 +3,7 @@ package ark.cw_dinner.database.tables.account;
 import java.io.Serializable;
 
 public class AccountObject implements Serializable{
+    private int userId;
     private String name;
     private String lastName;
     private String login;
@@ -25,6 +26,14 @@ public class AccountObject implements Serializable{
         this.login = login;
         this.passwd = passwd;
         this.typeID = typeID;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {

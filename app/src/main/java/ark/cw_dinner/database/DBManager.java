@@ -19,6 +19,7 @@ import ark.cw_dinner.database.tables.meals.MealObject;
 import ark.cw_dinner.database.tables.meals.MealsTable;
 import ark.cw_dinner.database.tables.mealsmenu.MenuObject;
 import ark.cw_dinner.database.tables.mealsmenu.MenuTable;
+import ark.cw_dinner.database.tables.ordering.OrderingObject;
 import ark.cw_dinner.database.tables.ordering.OrderingTable;
 import ark.cw_dinner.utils.TagsValues;
 
@@ -78,6 +79,7 @@ public class DBManager extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT " +
+                            AccountsTable.FIELD_ID + ", " +
                             AccountsTable.FIELD_NAME + ", " +
                             AccountsTable.FIELD_LAST_NAME + ", " +
                             AccountsTable.FIELD_LOGIN + ", " +
@@ -89,10 +91,11 @@ public class DBManager extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query,null);
         if (cursor.moveToFirst()){
             do {
-                loginedUser.setName(cursor.getString(0));
-                loginedUser.setLastName(cursor.getString(1));
-                loginedUser.setLogin(cursor.getString(2));
-                loginedUser.setType(cursor.getInt(3));
+                loginedUser.setUserId(cursor.getInt(0));
+                loginedUser.setName(cursor.getString(1));
+                loginedUser.setLastName(cursor.getString(2));
+                loginedUser.setLogin(cursor.getString(3));
+                loginedUser.setType(cursor.getInt(4));
             }while (cursor.moveToNext());
 
             return loginedUser;
@@ -164,31 +167,52 @@ public class DBManager extends SQLiteOpenHelper {
         return getListMenuItems(query);
     }
 
-/*    public List<MenuObject> getMealsMenuByType(int mealType){
-        String query = getQueryAllMealsMenu() +
-                        " HAVING " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE + " = " + mealType;
+    public List<OrderingObject> getUserOrderingHistory(int userId){
+        List<OrderingObject> orderingHistory = new ArrayList<>();
 
-        return getListMenuItems(query);
-    }*/
-
-    /*public List<String> getMealsTypeNames(){
-        List<String> mealsTypeList = new ArrayList<>();
-
-        String query = "SELECT " + MealsTypeTable.FIELD_NAME + " FROM" + MealsTypeTable.TABLE_NAME;
+        String query = "SELECT " +
+                            OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_MEAL_ID + ", " +
+                            MealsTable.TABLE_NAME + "." + MealsTable.FIELD_NAME + ", " +
+                            MealsTable.TABLE_NAME + "." + MealsTable.FIELD_COST + ", " +
+                            MealsTable.TABLE_NAME + "." + MealsTable.FIELD_DESCRIPTION + ", " +
+                            MealsTypeTable.TABLE_NAME + "." + MealsTypeTable.FIELD_NAME + ", " +
+                            OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_VALUE + ", " +
+                            OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_COST + ", " +
+                            OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE +
+                        " FROM " + OrderingTable.TABLE_NAME +
+                        " INNER JOIN " + MealsTable.TABLE_NAME +
+                                " ON " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_ID + " = " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_MEAL_ID+
+                        " INNER JOIN " + MealsTypeTable.TABLE_NAME +
+                                " ON " + MealsTypeTable.TABLE_NAME + "." + MealsTypeTable.FIELD_ID + " = " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE +
+                        " WHERE " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_USER_ID + " = " + userId ;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query,null);
 
+        Cursor cursor = db.rawQuery(query,null);
         if (cursor.moveToFirst()){
             do {
-                mealsTypeList.add(cursor.getString(0));
+                OrderingObject orderingObj = new OrderingObject();
+                MealObject mealObject = new MealObject();
+
+                mealObject.setMealId(cursor.getInt(0));
+                mealObject.setName(cursor.getString(1));
+                mealObject.setCost(cursor.getInt(2));
+                mealObject.setDescription(cursor.getString(3));
+                mealObject.setType(cursor.getString(4));
+
+                orderingObj.setMeal(mealObject);
+                orderingObj.setValue(cursor.getInt(5));
+                orderingObj.setCost(cursor.getInt(6));
+                orderingObj.setDate(cursor.getString(7));
+
+                orderingHistory.add(orderingObj);
             }while (cursor.moveToNext());
 
-            return mealsTypeList;
+            return orderingHistory;
         }
         else {
             return null;
         }
-    }*/
+    }
 
     private String getQueryAllMealsMenu(){
         return "SELECT " +

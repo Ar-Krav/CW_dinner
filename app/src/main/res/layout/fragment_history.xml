@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     tools:context="ark.cw_dinner.mainpart.fragments.HistoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ExpandableListView
+        android:id="@+id/orderHistoryELV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="HISTORY" />
+        android:layout_height="match_parent">
+    </ExpandableListView>
 
 </FrameLayout>

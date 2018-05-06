@@ -38,7 +38,7 @@ public class ExpLVAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return childData.get(listDataHeader.get(groupPosition)).size();
+        return  childData.get(listDataHeader.get(groupPosition)) == null ? 0 : childData.get(listDataHeader.get(groupPosition)).size();
     }
 
     @Override
@@ -102,8 +102,11 @@ public class ExpLVAdapter extends BaseExpandableListAdapter {
         TextView priceLabel = (TextView) convertView.findViewById(R.id.priceLabel);
             priceLabel.setText("" + mealObj.getCost());
 
-        TextView daysLabel = (TextView) convertView.findViewById(R.id.daysAvailableLabel);
-            daysLabel.setText(TextUtils.join(", ", mealObj.getAvailableInDays()));
+        TextView aditionalInfoLabel = (TextView) convertView.findViewById(R.id.aditionalInfoLabel);
+            String aditionalInfo = mealObj.getAvailableInDays() == null || mealObj.getAvailableInDays().isEmpty()
+                                    ? "Meal type: " + mealObj.getType()
+                                    : "Available days: " + TextUtils.join(", ", mealObj.getAvailableInDays());
+            aditionalInfoLabel.setText(aditionalInfo);
 
         TextView descriptionLable = (TextView) convertView.findViewById(R.id.descriptionLabel);
             descriptionLable.setText(mealObj.getDescription());

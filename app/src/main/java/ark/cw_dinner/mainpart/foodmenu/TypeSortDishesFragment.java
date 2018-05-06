@@ -23,8 +23,7 @@ public class TypeSortDishesFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_type_sort_dishes, container, false);
 
         HashMap<String, List<MealObject>> mealsTypeMap = getMealsSortedByType();
