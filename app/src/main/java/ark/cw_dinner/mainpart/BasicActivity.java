@@ -11,16 +11,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import ark.cw_dinner.R;
-import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.account.AccountObject;
-import ark.cw_dinner.database.tables.mealsmenu.MenuObject;
-import ark.cw_dinner.database.tables.ordering.OrderingObject;
 import ark.cw_dinner.mainpart.foodmenu.FoodMenuFragment;
-import ark.cw_dinner.mainpart.fragments.HistoryFragment;
+import ark.cw_dinner.mainpart.orderinghistory.HistoryFragment;
 import ark.cw_dinner.mainpart.fragments.HomeFragment;
 import ark.cw_dinner.mainpart.fragments.OrderingFragment;
 import ark.cw_dinner.utils.TagsValues;

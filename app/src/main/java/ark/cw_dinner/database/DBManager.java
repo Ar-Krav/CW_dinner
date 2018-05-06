@@ -184,7 +184,8 @@ public class DBManager extends SQLiteOpenHelper {
                                 " ON " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_ID + " = " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_MEAL_ID+
                         " INNER JOIN " + MealsTypeTable.TABLE_NAME +
                                 " ON " + MealsTypeTable.TABLE_NAME + "." + MealsTypeTable.FIELD_ID + " = " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE +
-                        " WHERE " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_USER_ID + " = " + userId ;
+                        " WHERE " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_USER_ID + " = " + userId +
+                        "ORDER BY " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + "DESC";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(query,null);
