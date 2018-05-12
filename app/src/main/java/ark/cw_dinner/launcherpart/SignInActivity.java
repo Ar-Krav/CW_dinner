@@ -99,7 +99,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void saveInSharedPreference(String tagValue, int savedValue){
-        SharedPreferences loginedUserIdPreference = getPreferences(MODE_PRIVATE);
+        SharedPreferences loginedUserIdPreference = getSharedPreferences(TagsValues.LOGINED_USER_PREFERENCES_NAME,MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = loginedUserIdPreference.edit();
         prefEditor.putInt(tagValue, savedValue);
         prefEditor.apply();

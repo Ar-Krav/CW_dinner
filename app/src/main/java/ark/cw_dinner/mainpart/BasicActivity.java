@@ -11,10 +11,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import ark.cw_dinner.R;
+import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.account.AccountObject;
+import ark.cw_dinner.database.tables.ordering.OrderingObject;
 import ark.cw_dinner.mainpart.foodmenu.FoodMenuFragment;
 import ark.cw_dinner.mainpart.orderinghistory.HistoryFragment;
 import ark.cw_dinner.mainpart.fragments.HomeFragment;
@@ -67,13 +70,13 @@ public class BasicActivity extends AppCompatActivity {
         /**
         * DB TEST DEBUG
         * */
-        /*DBManager dbManager = new DBManager(this);
+        DBManager dbManager = new DBManager(this);
         for (OrderingObject menuObject : dbManager.getUserOrderingHistory(1)){
             Log.d(TEST_TAG, "onCreate: " + menuObject.getMeal());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getDate());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getCost());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getValue());
-        }*/
+        }
     }
 
 

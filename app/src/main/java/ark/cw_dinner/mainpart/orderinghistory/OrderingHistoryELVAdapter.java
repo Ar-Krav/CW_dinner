@@ -86,7 +86,7 @@ public class OrderingHistoryELVAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.fmenu_list_item, null);
+            convertView = infalInflater.inflate(R.layout.ordering_history_list_item, null);
         }
 
         OrderingObject orderingObj = childData.get(listDataHeader.get(groupPosition)).get(childPosition);
@@ -106,10 +106,10 @@ public class OrderingHistoryELVAdapter extends BaseExpandableListAdapter {
             descriptionLable.setText(mealObj.getDescription());
 
         TextView totalNumLabel = (TextView) convertView.findViewById(R.id.totalNumLabel);
-            totalNumLabel.setText(orderingObj.getValue());
+            totalNumLabel.setText("" + orderingObj.getValue());
 
         TextView totalCostLabel = (TextView) convertView.findViewById(R.id.totalCostLabel);
-            totalCostLabel.setText(orderingObj.getCost());
+            totalCostLabel.setText("" + orderingObj.getCost());
 
         return convertView;
     }

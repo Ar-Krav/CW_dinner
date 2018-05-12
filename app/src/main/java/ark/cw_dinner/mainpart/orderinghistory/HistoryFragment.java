@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,16 +29,16 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_history, container, false);
 
-        HashMap<String, List<OrderingObject>> mealsTypeMap = getSortedHistory();
-        if(mealsTypeMap == null){
+        HashMap<String, List<OrderingObject>> orderingHistoryMap = getSortedHistory();
+        if(orderingHistoryMap == null){
             Toast.makeText(this.getActivity(), "Ordering history empty", Toast.LENGTH_SHORT).show();
             return fragmentView;
         }
 
-        List<String> mealsTypeList = new ArrayList<>(mealsTypeMap.keySet());
+        List<String> mealsTypeList = new ArrayList<>(orderingHistoryMap.keySet());
 
         ExpandableListView expLV = (ExpandableListView) fragmentView.findViewById(R.id.orderHistoryELV);
-        OrderingHistoryELVAdapter expLVAdapter = new OrderingHistoryELVAdapter(getContext(), mealsTypeList, mealsTypeMap);
+        OrderingHistoryELVAdapter expLVAdapter = new OrderingHistoryELVAdapter(getContext(), mealsTypeList, orderingHistoryMap);
         expLV.setAdapter(expLVAdapter);
 
         return fragmentView;
@@ -67,6 +68,8 @@ public class HistoryFragment extends Fragment {
     }
 
     private int getUserId(){
-        return getActivity().getPreferences(Context.MODE_PRIVATE).getInt(TagsValues.LOGINED_USER_PREFERENCES, -1);
+        int userID = this.getActivity().getSharedPreferences(TagsValues.LOGINED_USER_PREFERENCES_NAME, Context.MODE_PRIVATE).getInt(TagsValues.LOGINED_USER_PREFERENCES, -1);
+        Log.d("USER_TAG_TEST", "getUserId: " + userID);
+        return userID;
     }
 }

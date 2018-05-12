@@ -55,6 +55,7 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL(MenuTable.DEFAULT_VALUE_QUERY);
 
         db.execSQL(OrderingTable.CREATION_QUERY);
+        db.execSQL(OrderingTable.DEFAULT_VALUE_QUERY); //TODO del on reliese
     }
 
     @Override
@@ -185,7 +186,7 @@ public class DBManager extends SQLiteOpenHelper {
                         " INNER JOIN " + MealsTypeTable.TABLE_NAME +
                                 " ON " + MealsTypeTable.TABLE_NAME + "." + MealsTypeTable.FIELD_ID + " = " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE +
                         " WHERE " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_USER_ID + " = " + userId +
-                        "ORDER BY " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + "DESC";
+                        " ORDER BY " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + " DESC";
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(query,null);
