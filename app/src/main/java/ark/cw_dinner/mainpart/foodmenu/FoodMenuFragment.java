@@ -32,11 +32,6 @@ public class FoodMenuFragment extends Fragment {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fragment;
                 switch (item.getItemId()) {
-                    case R.id.bottom_navigation_all:{
-                        fragment = new AllDishesFragment();
-                        break;
-                    }
-
                     case R.id.bottom_navigation_by_day:{
                         fragment = new DaySortDishesFragment();
                         break;

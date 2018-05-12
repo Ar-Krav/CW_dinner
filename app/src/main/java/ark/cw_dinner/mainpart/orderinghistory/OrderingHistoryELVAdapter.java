@@ -106,10 +106,10 @@ public class OrderingHistoryELVAdapter extends BaseExpandableListAdapter {
             descriptionLable.setText(mealObj.getDescription());
 
         TextView totalNumLabel = (TextView) convertView.findViewById(R.id.totalNumLabel);
-            totalNumLabel.setText("" + orderingObj.getValue());
+            totalNumLabel.setText("Total num: " + orderingObj.getValue());
 
         TextView totalCostLabel = (TextView) convertView.findViewById(R.id.totalCostLabel);
-            totalCostLabel.setText("" + orderingObj.getCost());
+            totalCostLabel.setText("Total price: " + orderingObj.getCost());
 
         return convertView;
     }

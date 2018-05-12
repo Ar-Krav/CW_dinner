@@ -20,7 +20,6 @@ import ark.cw_dinner.database.tables.account.AccountObject;
 import ark.cw_dinner.database.tables.ordering.OrderingObject;
 import ark.cw_dinner.mainpart.foodmenu.FoodMenuFragment;
 import ark.cw_dinner.mainpart.orderinghistory.HistoryFragment;
-import ark.cw_dinner.mainpart.fragments.HomeFragment;
 import ark.cw_dinner.mainpart.fragments.OrderingFragment;
 import ark.cw_dinner.utils.TagsValues;
 
@@ -63,7 +62,7 @@ public class BasicActivity extends AppCompatActivity {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragment_area, new HomeFragment())
+                .replace(R.id.fragment_area, new OrderingFragment())
                 .commit();
 
 
@@ -93,11 +92,6 @@ public class BasicActivity extends AppCompatActivity {
                 setTitle(item.getTitle());
 
                 switch (item.getItemId()){
-                    case R.id.nav_home:{
-                        selectedFragment = new HomeFragment();
-                        break;
-                    }
-
                     case R.id.nav_ordering:{
                         selectedFragment = new OrderingFragment();
                         break;
@@ -130,7 +124,6 @@ public class BasicActivity extends AppCompatActivity {
                     };
                 }
 
-                // If mPendingRunnable is not null, then add to the message queue
                 if (mPendingRunnable != null) {
                     mHandler.post(mPendingRunnable);
                 }

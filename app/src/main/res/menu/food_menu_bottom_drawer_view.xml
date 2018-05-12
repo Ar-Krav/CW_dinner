@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/bottom_navigation_all"
-        android:icon="@drawable/food_frag_all"
-        android:title="@string/bottom_draw_all_food" />
-
-    <item
         android:id="@+id/bottom_navigation_by_day"
         android:icon="@drawable/food_frag_day"
         android:title="@string/bottom_draw_by_day" />
