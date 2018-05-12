@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import ark.cw_dinner.database.tables.meals.MealObject;
 import ark.cw_dinner.database.tables.ordering.OrderingObject;
 import ark.cw_dinner.mainpart.foodmenu.ExpLVAdapter;
 import ark.cw_dinner.utils.TagsValues;
+import ark.cw_dinner.utils.UtilService;
 
 public class HistoryFragment extends Fragment {
     public HistoryFragment() {}
@@ -31,7 +33,7 @@ public class HistoryFragment extends Fragment {
 
         HashMap<String, List<OrderingObject>> orderingHistoryMap = getSortedHistory();
         if(orderingHistoryMap == null){
-            Toast.makeText(this.getActivity(), "Ordering history empty", Toast.LENGTH_SHORT).show();
+            ((TextView) fragmentView.findViewById(R.id.emptyListLabel)).setVisibility(View.VISIBLE);
             return fragmentView;
         }
 
@@ -48,7 +50,7 @@ public class HistoryFragment extends Fragment {
         HashMap<String, List<OrderingObject>> orderingHistory = new HashMap<>();
         DBManager dbManager = new DBManager(this.getActivity());
 
-        List<OrderingObject> dbOrderingHistory = dbManager.getUserOrderingHistory(getUserId());
+        List<OrderingObject> dbOrderingHistory = dbManager.getUserOrderingHistory(UtilService.getUserId(this.getActivity()));
         if (dbOrderingHistory == null){
             return null;
         }

@@ -12,7 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
@@ -22,6 +24,7 @@ import ark.cw_dinner.mainpart.foodmenu.FoodMenuFragment;
 import ark.cw_dinner.mainpart.orderinghistory.HistoryFragment;
 import ark.cw_dinner.mainpart.fragments.OrderingFragment;
 import ark.cw_dinner.utils.TagsValues;
+import ark.cw_dinner.utils.UtilService;
 
 public class BasicActivity extends AppCompatActivity {
     String TEST_TAG = "AppMainActivity_DEBUG_TEST";
@@ -35,6 +38,8 @@ public class BasicActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
     private MenuItem prewiousSelectedItem;
     private Handler mHandler;
+
+    private Menu appMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +74,13 @@ public class BasicActivity extends AppCompatActivity {
         /**
         * DB TEST DEBUG
         * */
-        DBManager dbManager = new DBManager(this);
+        /*DBManager dbManager = new DBManager(this);
         for (OrderingObject menuObject : dbManager.getUserOrderingHistory(1)){
             Log.d(TEST_TAG, "onCreate: " + menuObject.getMeal());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getDate());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getCost());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getValue());
-        }
+        }*/
     }
 
 
@@ -85,8 +90,9 @@ public class BasicActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 if (item.getItemId() == prewiousSelectedItem.getItemId()) return false;
-
                 prewiousSelectedItem = item;
+
+                appMenu.findItem(R.id.delete_ordering_history).setVisible(false);
 
                 item.setChecked(true);
                 setTitle(item.getTitle());
@@ -103,6 +109,7 @@ public class BasicActivity extends AppCompatActivity {
                     }
 
                     case R.id.nav_ordering_history:{
+                        appMenu.findItem(R.id.delete_ordering_history).setVisible(true);
                         selectedFragment = new HistoryFragment();
                         break;
                     }
@@ -136,7 +143,25 @@ public class BasicActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.app_menu, menu);
+        appMenu = menu;
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.delete_ordering_history){
+            DBManager dbManager = new DBManager(this);
+            dbManager.deleteOrderingHistory(UtilService.getUserId(this));
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_area, new HistoryFragment())
+                    .commit();
+
+            Toast.makeText(this, "History deleted", Toast.LENGTH_SHORT).show();
+        }
+
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }

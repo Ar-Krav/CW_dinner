@@ -187,8 +187,8 @@ public class DBManager extends SQLiteOpenHelper {
                                 " ON " + MealsTypeTable.TABLE_NAME + "." + MealsTypeTable.FIELD_ID + " = " + MealsTable.TABLE_NAME + "." + MealsTable.FIELD_TYPE +
                         " WHERE " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_USER_ID + " = " + userId +
                         " ORDER BY " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + " DESC";
-        SQLiteDatabase db = this.getReadableDatabase();
 
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query,null);
         if (cursor.moveToFirst()){
             do {
@@ -214,6 +214,14 @@ public class DBManager extends SQLiteOpenHelper {
         else {
             return null;
         }
+    }
+
+    public void deleteOrderingHistory(int userId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "DELETE FROM " + OrderingTable.TABLE_NAME +
+                " WHERE " + OrderingTable.FIELD_USER_ID + " = " + userId;
+
+        db.execSQL(query);
     }
 
     private String getQueryAllMealsMenu(){
