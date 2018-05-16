@@ -1,10 +1,19 @@
 package ark.cw_dinner.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import ark.cw_dinner.R;
+import ark.cw_dinner.database.DBManager;
+import ark.cw_dinner.mainpart.orderinghistory.HistoryFragment;
 
 /**
  * Created by Ar-Krav on 12.05.2018.
@@ -20,8 +29,6 @@ public class UtilService {
     }
 
     public static String getCurrentDate(){
-        Log.d(UTIL_TEST_TAG, "Date: " + new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-
         return new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 }

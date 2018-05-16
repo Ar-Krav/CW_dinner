@@ -25,6 +25,8 @@ import ark.cw_dinner.utils.TagsValues;
 import ark.cw_dinner.utils.UtilService;
 
 public class HistoryFragment extends Fragment {
+    public static HashMap<String, List<OrderingObject>> orderingHistoryMap;
+
     public HistoryFragment() {}
 
     @Override

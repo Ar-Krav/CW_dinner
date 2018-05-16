@@ -1,5 +1,6 @@
 package ark.cw_dinner.mainpart;
 
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +31,7 @@ public class BasicActivity extends AppCompatActivity {
 
     Boolean isUserAdmin;
     Fragment selectedFragment;
+    BasicActivity thisActivity = this;
 
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
@@ -150,14 +153,7 @@ public class BasicActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.delete_ordering_history){
-            DBManager dbManager = new DBManager(this);
-            dbManager.deleteOrderingHistory(UtilService.getUserId(this));
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragment_area, new HistoryFragment())
-                    .commit();
-
-            Toast.makeText(this, "History deleted", Toast.LENGTH_SHORT).show();
+            showConfirmHistoryDelDialog();
         }
 
         if (drawerToggle.onOptionsItemSelected(item)) {
@@ -178,5 +174,33 @@ public class BasicActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    private void showConfirmHistoryDelDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(thisActivity);
+
+        builder.setTitle("Delete history")
+                .setMessage("Do you want delete all history")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Yes",  new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        DBManager dbManager = new DBManager(thisActivity);
+                        dbManager.deleteOrderingHistory(UtilService.getUserId(thisActivity));
+                        thisActivity.getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_area, new HistoryFragment())
+                                .commit();
+
+                        Toast.makeText(thisActivity, "History deleted", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
     }
 }
