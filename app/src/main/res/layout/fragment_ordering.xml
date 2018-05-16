@@ -1,13 +1,30 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ark.cw_dinner.mainpart.fragments.OrderingFragment">
+    android:orientation="vertical"
+    tools:context="ark.cw_dinner.mainpart.orderingfood.OrderingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/dateLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textAlignment="center"
+        android:hint="Date"
+        android:layout_marginBottom="10dp"/>
+
+    <ListView
+        android:id="@+id/orderingListMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="ORDERING" />
+        android:layout_weight="1">
+    </ListView>
 
-</FrameLayout>
+    <Button
+        android:id="@+id/buySelectedItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="buy!"/>
+
+</LinearLayout>
