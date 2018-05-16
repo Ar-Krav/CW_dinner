@@ -86,7 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
 
             if (isUserCreated){
                 Intent intent = new Intent(SignUpActivity.this, BasicActivity.class);
-                    intent.putExtra(TagsValues.LOGINED_USER_EXTRAS, newUser);
+                    intent.putExtra(TagsValues.LOGINED_USER_TYPE_PREFERENCE, newUser);
 
                 SignUpActivity.this.startActivity(intent);
             }

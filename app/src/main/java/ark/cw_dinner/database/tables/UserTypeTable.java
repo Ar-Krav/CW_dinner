@@ -12,5 +12,6 @@ public class UserTypeTable {
 
     public final static String DEFAULT_VALUE_QUERY = "INSERT INTO "+ TABLE_NAME +"("+ FIELD_ID +", "+ FIELD_TYPE +") VALUES" +
             "(1, 'admin')," +
-            "(2, 'user');";
+            "(2, 'user')," +
+            "(3, 'winner');";
 }

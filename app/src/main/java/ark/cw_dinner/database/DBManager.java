@@ -5,11 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -183,7 +180,7 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     public List<OrderingObject> getOrderingHistoryForToday(){
-        String query = getUserOrderingHistoryQuery(UtilService.getUserId(context)) +
+        String query = getUserOrderingHistoryQuery(UtilService.getCurrentUserId(context)) +
                         " AND " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + " = '" + UtilService.getCurrentDate() + "'";
 
         return getOrderingTableData(query);
@@ -215,7 +212,7 @@ public class DBManager extends SQLiteOpenHelper {
         }
 
         String delQuery = "DELETE FROM " + OrderingTable.TABLE_NAME +
-                " WHERE " + OrderingTable.FIELD_USER_ID + " = " + UtilService.getUserId(context) +
+                " WHERE " + OrderingTable.FIELD_USER_ID + " = " + UtilService.getCurrentUserId(context) +
                 " AND " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + " = '" + UtilService.getCurrentDate() + "'";
         dbManager.execSQL(delQuery);
 
@@ -342,7 +339,7 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     private String parseOrderingObjToQueryInsert(OrderingObject orderingObj){
-        return "(" + UtilService.getUserId(context) + "," +
+        return "(" + UtilService.getCurrentUserId(context) + "," +
                 orderingObj.getMeal().getMealId() + ", " +
                 orderingObj.getValue() + ", " +
                 orderingObj.getCost() + ", " +

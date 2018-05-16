@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
-import ark.cw_dinner.database.tables.account.AccountObject;
 import ark.cw_dinner.database.tables.ordering.OrderingObject;
 import ark.cw_dinner.mainpart.foodmenu.FoodMenuFragment;
 import ark.cw_dinner.mainpart.orderingfood.OrderingBaseFragment;
@@ -50,8 +49,7 @@ public class BasicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        AccountObject loginedUser = (AccountObject) getIntent().getSerializableExtra(TagsValues.LOGINED_USER_EXTRAS);
-        isUserAdmin = loginedUser.getType() == TagsValues.ACCOUNT_TYPE_ADMIN;
+        isUserAdmin = UtilService.getCurrentUserType(this) == TagsValues.ACCOUNT_TYPE_ADMIN;
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -185,7 +183,7 @@ public class BasicActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         DBManager dbManager = new DBManager(thisActivity);
-                        dbManager.deleteOrderingHistory(UtilService.getUserId(thisActivity));
+                        dbManager.deleteOrderingHistory(UtilService.getCurrentUserId(thisActivity));
                         thisActivity.getSupportFragmentManager()
                                 .beginTransaction()
                                 .replace(R.id.fragment_area, new HistoryFragment())

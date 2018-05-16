@@ -83,10 +83,10 @@ public class SignInActivity extends AppCompatActivity {
             super.onPostExecute(loginedUser);
 
             if (loginedUser != null){
-                saveInSharedPreference(TagsValues.LOGINED_USER_PREFERENCES, loginedUser.getUserId());
+                saveInSharedPreference(TagsValues.LOGINED_USER_ID_PREFERENCES, loginedUser.getUserId());
+                saveInSharedPreference(TagsValues.LOGINED_USER_TYPE_PREFERENCE, loginedUser.getType());
 
                 Intent intent = new Intent(SignInActivity.this, BasicActivity.class);
-                    intent.putExtra(TagsValues.LOGINED_USER_EXTRAS, loginedUser);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 SignInActivity.this.startActivity(intent);

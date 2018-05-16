@@ -11,6 +11,8 @@ import java.util.List;
 
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.tables.ordering.OrderingObject;
+import ark.cw_dinner.utils.TagsValues;
+import ark.cw_dinner.utils.UtilService;
 
 /**
  * Created by Ar-Krav on 16.05.2018.
@@ -30,7 +32,7 @@ public class OrderingConformAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return orderingObjList.size();
+        return isCurrentUserWinner() ? orderingObjList.size() + 1 : orderingObjList.size();
     }
 
     @Override
@@ -50,17 +52,37 @@ public class OrderingConformAdapter extends BaseAdapter {
             listItemView = lInflater.inflate(R.layout.confirm_ordering_result_item, parent, false);
         }
 
-        OrderingObject orderingObj = orderingObjList.get(position);
+        OrderingObject orderingObj;
+
+        String nameLabelValue;
+        String valueLabelValue;
+        String totalCostLabelValue;
+
+        if (isCurrentUserWinner() && position == getCount() - 1){ //TODO change to vinner
+            nameLabelValue = "Gift tea";
+            valueLabelValue = "1#";
+            totalCostLabelValue = "free";
+        }else{
+            orderingObj = orderingObjList.get(position);
+
+            nameLabelValue = orderingObj.getMeal().getName();
+            valueLabelValue = "" + orderingObj.getValue() + "#";
+            totalCostLabelValue = "" + orderingObj.getCost() + " UAH";
+        }
 
         TextView nameLabel = (TextView) listItemView.findViewById(R.id.nameLabel);
-            nameLabel.setText(orderingObj.getMeal().getName());
+            nameLabel.setText(nameLabelValue);
 
         TextView valueLabel = (TextView) listItemView.findViewById(R.id.valueLabel);
-            valueLabel.setText("" + orderingObj.getValue() + "#");
+            valueLabel.setText(valueLabelValue);
 
         TextView totalPriceLabel = (TextView) listItemView.findViewById(R.id.totalCostLabel);
-            totalPriceLabel.setText("" + orderingObj.getCost() + " UAH");
+            totalPriceLabel.setText(totalCostLabelValue);
 
         return listItemView;
+    }
+
+    private Boolean isCurrentUserWinner(){
+        return UtilService.getCurrentUserType(ctx) == TagsValues.ACCOUNT_TYPE_VINNER;
     }
 }
