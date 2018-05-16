@@ -1,8 +1,10 @@
 package ark.cw_dinner.mainpart.orderingfood;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,14 +30,9 @@ import ark.cw_dinner.database.tables.ordering.OrderingObject;
 
 public class OrderingFragment extends Fragment {
 
-    Context context;
-
     public static Map<Integer, OrderingObject> selectedMeals;
 
-    public OrderingFragment() {
-        context = this.getActivity();
-        selectedMeals = new HashMap<>();
-    }
+    public OrderingFragment() {    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
