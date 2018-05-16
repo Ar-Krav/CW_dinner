@@ -1,6 +1,7 @@
 package ark.cw_dinner.mainpart.orderingfood;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,30 +47,33 @@ public class TodayOrderingHistoryAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View listItemView = convertView;
+        Log.d("VIEW_TEST_LOG", "getView: " + listItemView);
         if (listItemView == null) {
             listItemView = lInflater.inflate(R.layout.ordering_history_list_item, parent, false);
         }
+
+        Log.d("VIEW_TEST_LOG", "getView: " + listItemView);
 
         OrderingObject orderingObj = orderingObjList.get(position);
 
         MealObject mealObj = orderingObj.getMeal();
 
-        TextView nameLabel = (TextView) convertView.findViewById(R.id.nameLabel);
+        TextView nameLabel = (TextView) listItemView.findViewById(R.id.nameLabel);
         nameLabel.setText(mealObj.getName());
 
-        TextView priceLabel = (TextView) convertView.findViewById(R.id.priceLabel);
+        TextView priceLabel = (TextView) listItemView.findViewById(R.id.priceLabel);
         priceLabel.setText("" + mealObj.getCost());
 
-        TextView aditionalInfoLabel = (TextView) convertView.findViewById(R.id.aditionalInfoLabel);
+        TextView aditionalInfoLabel = (TextView) listItemView.findViewById(R.id.aditionalInfoLabel);
         aditionalInfoLabel.setText("Meal type: " + mealObj.getType());
 
-        TextView descriptionLable = (TextView) convertView.findViewById(R.id.descriptionLabel);
+        TextView descriptionLable = (TextView) listItemView.findViewById(R.id.descriptionLabel);
         descriptionLable.setText(mealObj.getDescription());
 
-        TextView totalNumLabel = (TextView) convertView.findViewById(R.id.totalNumLabel);
+        TextView totalNumLabel = (TextView) listItemView.findViewById(R.id.totalNumLabel);
         totalNumLabel.setText("Total num: " + orderingObj.getValue());
 
-        TextView totalCostLabel = (TextView) convertView.findViewById(R.id.totalCostLabel);
+        TextView totalCostLabel = (TextView) listItemView.findViewById(R.id.totalCostLabel);
         totalCostLabel.setText("Total price: " + orderingObj.getCost());
 
         return listItemView;

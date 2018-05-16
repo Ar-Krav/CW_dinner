@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -20,7 +21,9 @@ import android.widget.Toast;
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.account.AccountObject;
+import ark.cw_dinner.database.tables.ordering.OrderingObject;
 import ark.cw_dinner.mainpart.foodmenu.FoodMenuFragment;
+import ark.cw_dinner.mainpart.orderingfood.OrderingBaseFragment;
 import ark.cw_dinner.mainpart.orderinghistory.HistoryFragment;
 import ark.cw_dinner.mainpart.orderingfood.OrderingFragment;
 import ark.cw_dinner.utils.TagsValues;
@@ -66,22 +69,18 @@ public class BasicActivity extends AppCompatActivity {
         prewiousSelectedItem = nvDrawer.getMenu().getItem(0);
         nvDrawer.getMenu().findItem(R.id.admin_area).setVisible(isUserAdmin);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_area, new OrderingFragment())
-                .commit();
-
+        placeBaseOrderingFragment();
 
         /**
         * DB TEST DEBUG
         * */
-        /*DBManager dbManager = new DBManager(this);
-        for (OrderingObject menuObject : dbManager.getUserOrderingHistory(1)){
+        DBManager dbManager = new DBManager(this);
+        for (OrderingObject menuObject : dbManager.getOrderingHistoryForToday()){
             Log.d(TEST_TAG, "onCreate: " + menuObject.getMeal());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getDate());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getCost());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getValue());
-        }*/
+        }
     }
 
 
@@ -100,7 +99,7 @@ public class BasicActivity extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.nav_ordering:{
-                        selectedFragment = new OrderingFragment();
+                        selectedFragment = new OrderingBaseFragment();
                         break;
                     }
 
@@ -202,5 +201,19 @@ public class BasicActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    public void replaceToOrderingFragment(){
+        thisActivity.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_area, new OrderingFragment())
+                .commit();
+    }
+
+    public void placeBaseOrderingFragment(){
+        thisActivity.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_area, new OrderingBaseFragment())
+                .commit();
     }
 }

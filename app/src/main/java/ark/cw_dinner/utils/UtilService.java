@@ -29,6 +29,6 @@ public class UtilService {
     }
 
     public static String getCurrentDate(){
-        return new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
 }

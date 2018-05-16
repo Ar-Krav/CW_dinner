@@ -184,7 +184,7 @@ public class DBManager extends SQLiteOpenHelper {
 
     public List<OrderingObject> getOrderingHistoryForToday(){
         String query = getUserOrderingHistoryQuery(UtilService.getUserId(context)) +
-                        " AND " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + " = " + UtilService.getCurrentDate();
+                        " AND " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + " = '" + UtilService.getCurrentDate() + "'";
 
         return getOrderingTableData(query);
     }
@@ -216,7 +216,7 @@ public class DBManager extends SQLiteOpenHelper {
 
         String delQuery = "DELETE FROM " + OrderingTable.TABLE_NAME +
                 " WHERE " + OrderingTable.FIELD_USER_ID + " = " + UtilService.getUserId(context) +
-                " AND " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + " = " + UtilService.getCurrentDate();
+                " AND " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + " = '" + UtilService.getCurrentDate() + "'";
         dbManager.execSQL(delQuery);
 
         objectsToInsert.addAll(userBuyMeals.values());

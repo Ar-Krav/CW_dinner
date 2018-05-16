@@ -2,6 +2,7 @@ package ark.cw_dinner.mainpart.orderingfood;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -27,12 +28,15 @@ import ark.cw_dinner.database.tables.meals.MealObject;
 import ark.cw_dinner.database.tables.mealsmenu.MenuObject;
 import ark.cw_dinner.database.tables.mealsmenu.MenuTable;
 import ark.cw_dinner.database.tables.ordering.OrderingObject;
+import ark.cw_dinner.mainpart.BasicActivity;
 
 public class OrderingFragment extends Fragment {
 
     public static Map<Integer, OrderingObject> selectedMeals;
 
-    public OrderingFragment() {    }
+    public OrderingFragment() {
+        selectedMeals = new HashMap<>();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,10 +73,8 @@ public class OrderingFragment extends Fragment {
                     return;
                 }
 
-                DBManager dbManager = new DBManager(getActivity());
-                dbManager.makeOrderOfFood(selectedMeals);
-
-                Log.d("TEST_BUY_ITEMS_TAG", "SelectedItems: " + selectedMeals.values());
+                Intent intent = new Intent(getActivity(), OrderingConfirmationDialogActivity.class);
+                getActivity().startActivity(intent);
             }
         };
     }
