@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,9 +17,10 @@ import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.account.AccountObject;
 import ark.cw_dinner.mainpart.BasicActivity;
 import ark.cw_dinner.utils.TagsValues;
+import ark.cw_dinner.utils.UtilService;
 
 public class SignUpActivity extends AppCompatActivity {
-    private final String TEST_TAG = "signUpActivity_DEBUG_TEST";
+    private final String TEST_TAG = "signUpActivity__TEST";
 
     EditText nameField;
     EditText lastNameField;
@@ -85,9 +87,7 @@ public class SignUpActivity extends AppCompatActivity {
             super.onPostExecute(isUserCreated);
 
             if (isUserCreated){
-                Intent intent = new Intent(SignUpActivity.this, BasicActivity.class);
-                    intent.putExtra(TagsValues.LOGINED_USER_TYPE_PREFERENCE, newUser);
-
+                Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
                 SignUpActivity.this.startActivity(intent);
             }
             else{

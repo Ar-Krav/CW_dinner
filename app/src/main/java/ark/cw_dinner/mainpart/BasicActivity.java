@@ -53,7 +53,7 @@ public class BasicActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Home");
+        setTitle("Ordering");
 
         mHandler = new Handler();
 
@@ -73,12 +73,14 @@ public class BasicActivity extends AppCompatActivity {
         * DB TEST DEBUG
         * */
         DBManager dbManager = new DBManager(this);
-        for (OrderingObject menuObject : dbManager.getOrderingHistoryForToday()){
+        /*for (OrderingObject menuObject : dbManager.getUserType()){
             Log.d(TEST_TAG, "onCreate: " + menuObject.getMeal());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getDate());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getCost());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getValue());
-        }
+        }*/
+
+        Log.d(TEST_TAG, "onCreate: "  + dbManager.getUserType());
     }
 
 

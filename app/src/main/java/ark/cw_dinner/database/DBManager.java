@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import ark.cw_dinner.database.tables.AccountTrigger;
 import ark.cw_dinner.database.tables.DaysOfWeekTable;
 import ark.cw_dinner.database.tables.MealsTypeTable;
 import ark.cw_dinner.database.tables.UserTypeTable;
@@ -59,7 +60,8 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL(MenuTable.DEFAULT_VALUE_QUERY);
 
         db.execSQL(OrderingTable.CREATION_QUERY);
-        db.execSQL(OrderingTable.DEFAULT_VALUE_QUERY); //TODO del on reliese
+
+        db.execSQL(AccountTrigger.CREATE_QUERY);
     }
 
     @Override
@@ -344,5 +346,21 @@ public class DBManager extends SQLiteOpenHelper {
                 orderingObj.getValue() + ", " +
                 orderingObj.getCost() + ", " +
                 "'" + orderingObj.getDate() + "')";
+    }
+
+
+    public int getUserType(){
+        String query = "SELECT " + AccountsTable.FIELD_TYPE +
+                " FROM " + AccountsTable.TABLE_NAME +
+                " WHERE " + AccountsTable.FIELD_ID + " = " + UtilService.getCurrentUserId(context);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            return cursor.getInt(0);
+        }
+        else {
+            return -1;
+        }
     }
 }

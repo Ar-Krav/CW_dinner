@@ -15,6 +15,7 @@ import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.account.AccountObject;
 import ark.cw_dinner.mainpart.BasicActivity;
 import ark.cw_dinner.utils.TagsValues;
+import ark.cw_dinner.utils.UtilService;
 
 public class SignInActivity extends AppCompatActivity {
     private String TEST_TAG = "SignInActivity_DEBUG_TAG";
@@ -65,13 +66,13 @@ public class SignInActivity extends AppCompatActivity {
 
         @Override
         protected AccountObject doInBackground(String... strings) {
-            /*
-            TODO change back!!!!!!
-            String login = strings[0];
-            String passwd = strings[1];*/
 
-            String login = "ark";
-            String passwd = "12345ark";
+            //TODO change back!!!!!!
+            String login = strings[0];
+            String passwd = strings[1];
+
+            /*String login = "ark";
+            String passwd = "12345ark";*/
 
             DBManager dbManager = new DBManager(SignInActivity.this);
 
@@ -83,8 +84,8 @@ public class SignInActivity extends AppCompatActivity {
             super.onPostExecute(loginedUser);
 
             if (loginedUser != null){
-                saveInSharedPreference(TagsValues.LOGINED_USER_ID_PREFERENCES, loginedUser.getUserId());
-                saveInSharedPreference(TagsValues.LOGINED_USER_TYPE_PREFERENCE, loginedUser.getType());
+                UtilService.saveInSharedPreference(SignInActivity.this, TagsValues.LOGINED_USER_ID_PREFERENCES, loginedUser.getUserId());
+                UtilService.saveInSharedPreference(SignInActivity.this, TagsValues.LOGINED_USER_TYPE_PREFERENCE, loginedUser.getType());
 
                 Intent intent = new Intent(SignInActivity.this, BasicActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -99,7 +100,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void saveInSharedPreference(String tagValue, int savedValue){
-        SharedPreferences loginedUserIdPreference = getSharedPreferences(TagsValues.LOGINED_USER_PREFERENCES_NAME,MODE_PRIVATE);
+        SharedPreferences loginedUserIdPreference = getSharedPreferences(TagsValues.SHARED_PREFERENCE_NAME,MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = loginedUserIdPreference.edit();
         prefEditor.putInt(tagValue, savedValue);
         prefEditor.apply();

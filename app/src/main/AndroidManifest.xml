@@ -23,7 +23,7 @@
             android:name=".mainpart.BasicActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".mainpart.orderingfood.OrderingConfirmationDialogActivity"
-                android:theme="@style/Theme.AppCompat.Dialog"
+                android:theme="@style/Theme.AppCompat.Dialog.Alert"
                 android:noHistory="true"/>
     </application>
 

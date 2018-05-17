@@ -24,5 +24,5 @@ public class OrderingTable {
             "FOREIGN KEY ("+ FIELD_USER_ID +") REFERENCES "+ AccountsTable.TABLE_NAME +" ("+ AccountsTable.FIELD_ID +") ON DELETE NO ACTION ON UPDATE CASCADE );";
 
     public final static String DEFAULT_VALUE_QUERY = "INSERT INTO "+ TABLE_NAME +"("+ FIELD_ID +", "+ FIELD_USER_ID +", "+ FIELD_MEAL_ID +", "+ FIELD_VALUE +", "+ FIELD_COST +", "+ FIELD_ORDER_DATE +") VALUES" +
-            "(2, 1, 3, 3, 50,'2018-05-16')";
+            " (2, 1, 3, 3, 50,'2018-05-16');";
 }
