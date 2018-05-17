@@ -24,5 +24,5 @@ public class AccountsTable {
     public final static String DEFAULT_VALUE_QUERY = "INSERT INTO "+ TABLE_NAME /*+"("+ FIELD_ID +", "+ FIELD_NAME +", "+ FIELD_LAST_NAME +", "+ FIELD_TYPE */+ " VALUES" +
             "(1, 'Artem', 'Kravchenko', 'ark', '12345ark', 1)," +
             "(2, 'Olexiy', 'Pogribnyak', 'olp', '12345olp', 2)," +
-            "(3, 'Viraliy', 'Odinisov', 'vlo', '12345vlo', 2);";
+            "(3, 'Vitaliy', 'Odinisov', 'vlo', '12345vlo', 2);";
 }

@@ -8,4 +8,6 @@ public class TagsValues {
     public final static int ACCOUNT_TYPE_ADMIN = 1;
     public final static int ACCOUNT_TYPE_USER = 2;
     public final static int ACCOUNT_TYPE_VINNER = 3;
+
+    public final static int NUM_OF_USER_TO_WIN = 4;
 }
