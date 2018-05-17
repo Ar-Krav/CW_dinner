@@ -14,7 +14,7 @@ import java.util.List;
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.ordering.OrderingObject;
-import ark.cw_dinner.mainpart.BasicActivity;
+import ark.cw_dinner.mainpart.BaseAppActivity;
 
 
 public class OrderingBaseFragment extends Fragment {
@@ -49,7 +49,7 @@ public class OrderingBaseFragment extends Fragment {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BasicActivity) getActivity()).replaceToOrderingFragment();
+                ((BaseAppActivity) getActivity()).replaceToOrderingFragment();
             }
         };
     }

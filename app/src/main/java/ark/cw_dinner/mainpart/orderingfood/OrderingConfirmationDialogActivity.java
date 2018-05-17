@@ -14,7 +14,7 @@ import java.util.List;
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.ordering.OrderingObject;
-import ark.cw_dinner.mainpart.BasicActivity;
+import ark.cw_dinner.mainpart.BaseAppActivity;
 
 public class OrderingConfirmationDialogActivity extends AppCompatActivity {
 
@@ -57,7 +57,7 @@ public class OrderingConfirmationDialogActivity extends AppCompatActivity {
                 DBManager dbManager = new DBManager(OrderingConfirmationDialogActivity.this);
                 dbManager.makeOrderOfFood(OrderingFragment.selectedMeals);
 
-                Intent intent = new Intent(OrderingConfirmationDialogActivity.this, BasicActivity.class);
+                Intent intent = new Intent(OrderingConfirmationDialogActivity.this, BaseAppActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();

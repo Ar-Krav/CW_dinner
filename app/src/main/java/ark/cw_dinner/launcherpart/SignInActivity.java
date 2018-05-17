@@ -13,9 +13,8 @@ import android.widget.Toast;
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.account.AccountObject;
-import ark.cw_dinner.mainpart.BasicActivity;
+import ark.cw_dinner.mainpart.BaseAppActivity;
 import ark.cw_dinner.utils.TagsValues;
-import ark.cw_dinner.utils.UtilService;
 
 public class SignInActivity extends AppCompatActivity {
     private String TEST_TAG = "SignInActivity_DEBUG_TAG";
@@ -87,7 +86,7 @@ public class SignInActivity extends AppCompatActivity {
                 saveInSharedPreference(TagsValues.LOGINED_USER_ID_PREFERENCES, loginedUser.getUserId());
                 saveInSharedPreference(TagsValues.LOGINED_USER_TYPE_PREFERENCE, loginedUser.getType());
 
-                Intent intent = new Intent(SignInActivity.this, BasicActivity.class);
+                Intent intent = new Intent(SignInActivity.this, BaseAppActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                 SignInActivity.this.startActivity(intent);

@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,9 +14,6 @@ import android.widget.Toast;
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.account.AccountObject;
-import ark.cw_dinner.mainpart.BasicActivity;
-import ark.cw_dinner.utils.TagsValues;
-import ark.cw_dinner.utils.UtilService;
 
 public class SignUpActivity extends AppCompatActivity {
     private final String TEST_TAG = "signUpActivity__TEST";

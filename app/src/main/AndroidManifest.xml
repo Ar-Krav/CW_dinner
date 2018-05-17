@@ -20,7 +20,7 @@
             android:name=".launcherpart.SignUpActivity"
             android:noHistory="true" />
         <activity
-            android:name=".mainpart.BasicActivity"
+            android:name=".mainpart.BaseAppActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".mainpart.orderingfood.OrderingConfirmationDialogActivity"
                 android:theme="@style/Theme.AppCompat.Dialog.Alert"
