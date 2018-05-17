@@ -79,8 +79,6 @@ public class BasicActivity extends AppCompatActivity {
             Log.d(TEST_TAG, "onCreate: " + menuObject.getCost());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getValue());
         }*/
-
-        Log.d(TEST_TAG, "onCreate: "  + dbManager.getUserType());
     }
 
 

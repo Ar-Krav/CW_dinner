@@ -31,11 +31,4 @@ public class UtilService {
     public static String getCurrentDate(){
         return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
-
-    public static void saveInSharedPreference(Context context, String tagValue, int savedValue){
-        SharedPreferences loginedUserIdPreference = context.getSharedPreferences(TagsValues.SHARED_PREFERENCE_NAME,MODE_PRIVATE);
-        SharedPreferences.Editor prefEditor = loginedUserIdPreference.edit();
-        prefEditor.putInt(tagValue, savedValue);
-        prefEditor.apply();
-    }
 }

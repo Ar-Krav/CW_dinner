@@ -347,20 +347,4 @@ public class DBManager extends SQLiteOpenHelper {
                 orderingObj.getCost() + ", " +
                 "'" + orderingObj.getDate() + "')";
     }
-
-
-    public int getUserType(){
-        String query = "SELECT " + AccountsTable.FIELD_TYPE +
-                " FROM " + AccountsTable.TABLE_NAME +
-                " WHERE " + AccountsTable.FIELD_ID + " = " + UtilService.getCurrentUserId(context);
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query,null);
-        if (cursor.moveToFirst()){
-            return cursor.getInt(0);
-        }
-        else {
-            return -1;
-        }
-    }
 }
