@@ -1,7 +1,5 @@
-package ark.cw_dinner.database.tables;
+package ark.cw_dinner.database.tables.account;
 
-import ark.cw_dinner.database.tables.account.AccountsTable;
-import ark.cw_dinner.database.tables.ordering.OrderingTable;
 import ark.cw_dinner.utils.TagsValues;
 
 /**

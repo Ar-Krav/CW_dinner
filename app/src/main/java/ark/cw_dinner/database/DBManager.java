@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import ark.cw_dinner.database.tables.AccountTrigger;
+import ark.cw_dinner.database.tables.account.AccountTrigger;
 import ark.cw_dinner.database.tables.DaysOfWeekTable;
 import ark.cw_dinner.database.tables.MealsTypeTable;
 import ark.cw_dinner.database.tables.UserTypeTable;
@@ -230,6 +230,24 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    public void upsertMealsAndMenu(MealObject mealItem){
+        List<MenuObject> newMenuItemsList = new ArrayList<>();
+        for (String dayOfWeek : mealItem.getAvailableInDays()){
+            newMenuItemsList.add(new MenuObject(mealItem, dayOfWeek));
+        }
+
+        String query ="BEGIN TRANSACTION; " +
+                        getQueryUpsertMealItem(mealItem) + " " +
+                        getQueryDelMenuItemByMeal(mealItem.getMealId()) + " " +
+                        getQueryInsertNewMenuItem(newMenuItemsList) +
+                        " COMMIT;";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL(query);
+    }
+
+    /*Helper db methods*/
+
     private String getQueryAllMealsMenu(){
         return "SELECT " +
                         MenuTable.TABLE_NAME + "." + MenuTable.FIELD_MEAL_ID + ", " +
@@ -346,5 +364,38 @@ public class DBManager extends SQLiteOpenHelper {
                 orderingObj.getValue() + ", " +
                 orderingObj.getCost() + ", " +
                 "'" + orderingObj.getDate() + "')";
+    }
+
+    private String getQueryUpsertMealItem(MealObject mealItem){
+        return "INSERT OR REPLACE INTO " + MealsTable.TABLE_NAME +
+                " VALUES (" + MealsTable.FIELD_ID + " = " + mealItem.getMealId() + ", " +
+                              MealsTable.FIELD_NAME + " = " + mealItem.getName() + ", " +
+                              MealsTable.FIELD_COST + " = " + mealItem.getCost() + ", " +
+                              MealsTable.FIELD_DESCRIPTION + " = " + mealItem.getDescription() + ", " +
+                              MealsTable.FIELD_TYPE + " = " + mealItem.getType() + ");";
+    }
+
+    private String getQueryDelMenuItemByMeal(int mealID){
+        return "DELETE FROM " + MenuTable.TABLE_NAME +
+                " WHERE " + MenuTable.FIELD_MEAL_ID + " = " + mealID + ";";
+    }
+
+    private String getQueryInsertNewMenuItem(List<MenuObject> newMenuItemsList){
+        String query = "INSERT INTO "+ MenuTable.TABLE_NAME +"("+ MenuTable.FIELD_MEAL_ID +", "+ MenuTable.FIELD_WEEK_DAY_ID + ") VALUES";
+        for (int i = 0; i < newMenuItemsList.size(); i++){
+            if (i == newMenuItemsList.size() - 1){
+                query += " " + parseMenuObjToQueryInsert(newMenuItemsList.get(i)) + ";";
+            }
+            else {
+                query += " " + parseMenuObjToQueryInsert(newMenuItemsList.get(i)) + ",";
+            }
+        }
+
+        return query;
+    }
+
+    private String parseMenuObjToQueryInsert(MenuObject menuItem){
+        return "(" + menuItem.getMeal().getMealId() + ", " +
+                menuItem.getDayName() + ")";
     }
 }

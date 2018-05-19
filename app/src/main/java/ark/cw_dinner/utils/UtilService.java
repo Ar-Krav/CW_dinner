@@ -5,7 +5,14 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import ark.cw_dinner.database.DBManager;
+import ark.cw_dinner.database.tables.meals.MealObject;
+import ark.cw_dinner.database.tables.mealsmenu.MenuObject;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -30,5 +37,44 @@ public class UtilService {
 
     public static String getCurrentDate(){
         return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    }
+
+    public HashMap<String, List<MealObject>> getMealsSortedByType(Context context){
+        HashMap<String, List<MealObject>> mealsTypeMap = new HashMap<String, List<MealObject>>();
+        for (MealObject mealObj : getMealsInMenu(context)){
+            if (mealsTypeMap.containsKey(mealObj.getType())){
+                mealsTypeMap.get(mealObj.getType()).add(mealObj);
+            }
+            else {
+                List<MealObject> newList = new ArrayList<MealObject>();
+                newList.add(mealObj);
+                mealsTypeMap.put(mealObj.getType(), newList);
+            }
+        }
+
+        return mealsTypeMap;
+    }
+
+    private List<MealObject> getMealsInMenu(Context context){
+        DBManager dbManager = new DBManager(context);
+
+        HashMap<Integer, MealObject> mealsInMenu = new HashMap<>();
+        for (MenuObject menuObj : dbManager.getMealsMenu()){
+            MealObject mealObj = menuObj.getMeal();
+
+            if (mealsInMenu.containsKey(mealObj.getMealId())){
+                List<String> daysAvailable = mealsInMenu.get(mealObj.getMealId()).getAvailableInDays();
+                daysAvailable.add(menuObj.getDayName());
+            }
+            else {
+                List<String> daysNameList = new ArrayList<>();
+                daysNameList.add(menuObj.getDayName());
+                mealObj.setAvailableInDays(daysNameList);
+
+                mealsInMenu.put(mealObj.getMealId(), mealObj);
+            }
+        }
+
+        return new ArrayList<>(mealsInMenu.values());
     }
 }

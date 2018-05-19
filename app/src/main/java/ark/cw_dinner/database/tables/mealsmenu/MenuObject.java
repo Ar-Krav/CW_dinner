@@ -5,15 +5,13 @@ import ark.cw_dinner.database.tables.meals.MealObject;
 public class MenuObject {
     private MealObject meal;
     private String dayName;
-    private Boolean isEnabled;
 
     public MenuObject() {
     }
 
-    public MenuObject(MealObject meal, String dayName, Boolean isEnabled) {
+    public MenuObject(MealObject meal, String dayName) {
         this.meal = meal;
         this.dayName = dayName;
-        this.isEnabled = isEnabled;
     }
 
     public MealObject getMeal() {
@@ -30,13 +28,5 @@ public class MenuObject {
 
     public void setDayName(String dayName) {
         this.dayName = dayName;
-    }
-
-    public Boolean getEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        isEnabled = enabled;
     }
 }

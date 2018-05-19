@@ -13,12 +13,15 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
+import ark.cw_dinner.database.tables.ordering.OrderingObject;
+import ark.cw_dinner.mainpart.adminpanel.AdminPanelFragment;
 import ark.cw_dinner.mainpart.foodmenu.FoodMenuFragment;
 import ark.cw_dinner.mainpart.orderingfood.OrderingBaseFragment;
 import ark.cw_dinner.mainpart.orderinghistory.HistoryFragment;
@@ -71,8 +74,8 @@ public class BaseAppActivity extends AppCompatActivity {
         * DB TEST DEBUG
         * */
         DBManager dbManager = new DBManager(this);
-        /*for (OrderingObject menuObject : dbManager.getUserType()){
-            Log.d(TEST_TAG, "onCreate: " + menuObject.getMeal());
+        /*for (OrderingObject menuObject : dbManager.getUserOrderingHistory(UtilService.getCurrentUserId(this))){
+            Log.d(TEST_TAG, "onCreate: " + menuObject.getMeal().getName());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getDate());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getCost());
             Log.d(TEST_TAG, "onCreate: " + menuObject.getValue());
@@ -107,6 +110,10 @@ public class BaseAppActivity extends AppCompatActivity {
                     case R.id.nav_ordering_history:{
                         appMenu.findItem(R.id.delete_ordering_history).setVisible(true);
                         selectedFragment = new HistoryFragment();
+                        break;
+                    }
+                    case R.id.nav_admin_panel:{
+                        selectedFragment = new AdminPanelFragment();
                         break;
                     }
                     default: selectedFragment = null;
