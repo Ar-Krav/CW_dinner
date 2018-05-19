@@ -246,7 +246,17 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    /*Helper db methods*/
+    public void deleteMeal(int mealID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "DELETE FROM " + MealsTable.TABLE_NAME +
+                " WHERE " + MealsTable.FIELD_ID + " = " + mealID;
+
+        db.execSQL(query);
+    }
+
+    /**
+     * Helper db methods
+     * */
 
     private String getQueryAllMealsMenu(){
         return "SELECT " +

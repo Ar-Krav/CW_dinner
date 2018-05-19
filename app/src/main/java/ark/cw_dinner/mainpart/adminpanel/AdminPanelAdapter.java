@@ -1,19 +1,26 @@
 package ark.cw_dinner.mainpart.adminpanel;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
 
 import ark.cw_dinner.R;
+import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.meals.MealObject;
+import ark.cw_dinner.mainpart.orderinghistory.HistoryFragment;
+import ark.cw_dinner.utils.UtilService;
 
 /**
  * Created by Ar-Krav on 19.05.2018.
@@ -87,13 +94,16 @@ public class AdminPanelAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+        final int groupPositionForDel = groupPosition;
+        final int childPositionForDel = childPosition;
+
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = infalInflater.inflate(R.layout.admin_panel_list_item, null);
         }
 
-        MealObject mealObj = childData.get(listDataHeader.get(groupPosition)).get(childPosition);
+        final MealObject mealObj = childData.get(listDataHeader.get(groupPosition)).get(childPosition);
 
         TextView nameLabel = (TextView) convertView.findViewById(R.id.nameLabel);
         nameLabel.setText(mealObj.getName());
@@ -106,6 +116,38 @@ public class AdminPanelAdapter extends BaseExpandableListAdapter {
 
         TextView descriptionLable = (TextView) convertView.findViewById(R.id.descriptionLabel);
         descriptionLable.setText(mealObj.getDescription());
+
+        Button delBtn = (Button) convertView.findViewById(R.id.delMealBtn);
+        delBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                builder.setTitle("Delete meal item")
+                        .setMessage("Do you want delete meal item?")
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton("Yes",  new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                DBManager dbManager = new DBManager(context);
+                                dbManager.deleteMeal(mealObj.getMealId());
+
+                                childData.get(listDataHeader.get(groupPositionForDel)).remove(childPositionForDel);
+                                notifyDataSetChanged();
+
+
+                                Toast.makeText(context, mealObj.getName() + " was deleted", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        })
+                        .show();
+            }
+        });
 
         return convertView;
     }
