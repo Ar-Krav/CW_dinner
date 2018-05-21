@@ -2,6 +2,7 @@ package ark.cw_dinner.mainpart.adminpanel;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +21,7 @@ import ark.cw_dinner.R;
 import ark.cw_dinner.database.DBManager;
 import ark.cw_dinner.database.tables.meals.MealObject;
 import ark.cw_dinner.mainpart.orderinghistory.HistoryFragment;
+import ark.cw_dinner.utils.TagsValues;
 import ark.cw_dinner.utils.UtilService;
 
 /**
@@ -148,6 +150,16 @@ public class AdminPanelAdapter extends BaseExpandableListAdapter {
                         .show();
             }
         });
+
+        Button editBtn = (Button) convertView.findViewById(R.id.editMealBtn);
+            editBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, MealEditor.class);
+                    intent.putExtra(TagsValues.MEAL_EDITOR_INTENT_EXTRA, mealObj);
+                    context.startActivity(intent);
+                }
+            });
 
         return convertView;
     }

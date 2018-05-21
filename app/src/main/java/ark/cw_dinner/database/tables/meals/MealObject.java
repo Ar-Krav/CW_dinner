@@ -1,8 +1,9 @@
 package ark.cw_dinner.database.tables.meals;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MealObject {
+public class MealObject implements Serializable{
     private int mealId;
     private String name;
     private int cost;

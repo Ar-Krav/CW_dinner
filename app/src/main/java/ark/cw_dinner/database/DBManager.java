@@ -5,8 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -220,38 +222,92 @@ public class DBManager extends SQLiteOpenHelper {
 
         objectsToInsert.addAll(userBuyMeals.values());
         dbManager.execSQL(getQueryInserOrderingObjects(objectsToInsert));
+        dbManager.close();
     }
 
     public void deleteOrderingHistory(int userId){
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + OrderingTable.TABLE_NAME +
                 " WHERE " + OrderingTable.FIELD_USER_ID + " = " + userId;
 
         db.execSQL(query);
+        db.close();
     }
 
-    public void upsertMealsAndMenu(MealObject mealItem){
+    public void upsertMealsAndMenu(MealObject mealItem, Boolean isUpdate){
         List<MenuObject> newMenuItemsList = new ArrayList<>();
+
+        //String upserMealQuery = isUpdate ? getQueryUpdateMealItem(mealItem) : getQueryInsertMealItem(mealItem);
+        /*String deleteMenuQuery = getQueryDelMenuItemByMeal(mealItem.getMealId());
+        String insertMenuQuery = getQueryInsertNewMenuItem(newMenuItemsList);*/
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+
+        if (isUpdate){
+            db.execSQL(getQueryUpdateMealItem(mealItem));
+        }
+        else {
+            int mealID = (int)insertNewMeal(mealItem);
+            Log.d("ID_TEST_LOG", "ID: " + mealID);
+            mealItem.setMealId(mealID);
+        }
+
         for (String dayOfWeek : mealItem.getAvailableInDays()){
             newMenuItemsList.add(new MenuObject(mealItem, dayOfWeek));
         }
 
-        String query ="BEGIN TRANSACTION; " +
-                        getQueryUpsertMealItem(mealItem) + " " +
-                        getQueryDelMenuItemByMeal(mealItem.getMealId()) + " " +
-                        getQueryInsertNewMenuItem(newMenuItemsList) +
-                        " COMMIT;";
+        db.execSQL(getQueryDelMenuItemByMeal(mealItem.getMealId()));
+        db.execSQL(getQueryInsertNewMenuItem(newMenuItemsList));
+        db.setTransactionSuccessful();
 
-        SQLiteDatabase db = this.getReadableDatabase();
-        db.execSQL(query);
+        db.endTransaction();
+        db.close();
     }
 
     public void deleteMeal(int mealID){
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         String query = "DELETE FROM " + MealsTable.TABLE_NAME +
                 " WHERE " + MealsTable.FIELD_ID + " = " + mealID;
 
         db.execSQL(query);
+        db.close();
+    }
+
+    public Map<String, Integer> getMealTypes(){
+        Map<String, Integer> mealTypeMap = new HashMap<>();
+        String query = "SELECT * FROM " + MealsTypeTable.TABLE_NAME;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            do {
+                mealTypeMap.put(cursor.getString(1), cursor.getInt(0));
+            }while (cursor.moveToNext());
+
+            return mealTypeMap;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public Map<String, Integer> getDaysOfWeek(){
+        Map<String, Integer> daysOfWeek = new HashMap<>();
+        String query = "SELECT * FROM " + DaysOfWeekTable.TABLE_NAME;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(query,null);
+        if (cursor.moveToFirst()){
+            do {
+                daysOfWeek.put(cursor.getString(1), cursor.getInt(0));
+            }while (cursor.moveToNext());
+
+            return daysOfWeek;
+        }
+        else {
+            return null;
+        }
     }
 
     /**
@@ -376,13 +432,31 @@ public class DBManager extends SQLiteOpenHelper {
                 "'" + orderingObj.getDate() + "')";
     }
 
-    private String getQueryUpsertMealItem(MealObject mealItem){
-        return "INSERT OR REPLACE INTO " + MealsTable.TABLE_NAME +
-                " VALUES (" + MealsTable.FIELD_ID + " = " + mealItem.getMealId() + ", " +
-                              MealsTable.FIELD_NAME + " = " + mealItem.getName() + ", " +
-                              MealsTable.FIELD_COST + " = " + mealItem.getCost() + ", " +
-                              MealsTable.FIELD_DESCRIPTION + " = " + mealItem.getDescription() + ", " +
-                              MealsTable.FIELD_TYPE + " = " + mealItem.getType() + ");";
+    /*private String getQueryInsertMealItem(MealObject mealItem){
+        return "INSERT INTO " + MealsTable.TABLE_NAME +
+                "( " + MealsTable.FIELD_NAME +", "+ MealsTable.FIELD_COST +", "+ MealsTable.FIELD_DESCRIPTION +", "+ MealsTable.FIELD_TYPE + ") " +
+                " VALUES ('" + mealItem.getName() + "', " + mealItem.getCost() + ", '" + mealItem.getDescription() + "', " + mealItem.getType() + ");";
+    }*/
+
+    public long insertNewMeal(MealObject mealItem){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(MealsTable.FIELD_NAME, mealItem.getName());
+        contentValues.put(MealsTable.FIELD_COST, mealItem.getCost());
+        contentValues.put(MealsTable.FIELD_DESCRIPTION, mealItem.getDescription());
+        contentValues.put(MealsTable.FIELD_TYPE, mealItem.getType());
+
+        return  db.insert(MealsTable.TABLE_NAME, null, contentValues);
+    }
+
+    private String getQueryUpdateMealItem(MealObject mealItem){
+        return "UPDATE " + MealsTable.TABLE_NAME +
+                " SET " + MealsTable.FIELD_NAME + " = '" + mealItem.getName() + "', " +
+                          MealsTable.FIELD_COST + " = " + mealItem.getCost() + ", " +
+                          MealsTable.FIELD_DESCRIPTION + " = '" + mealItem.getDescription() + "', " +
+                          MealsTable.FIELD_TYPE + " = " + mealItem.getType() +
+                " WHERE " + MealsTable.FIELD_ID + " = " + mealItem.getMealId() +";";
     }
 
     private String getQueryDelMenuItemByMeal(int mealID){

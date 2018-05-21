@@ -1,11 +1,14 @@
 package ark.cw_dinner.mainpart.adminpanel;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +36,16 @@ public class AdminPanelFragment extends Fragment {
         ExpandableListView expLV = (ExpandableListView) fragmentView.findViewById(R.id.mealsList);
         AdminPanelAdapter expLVAdapter = new AdminPanelAdapter(getContext(), mealsTypeList, mealsTypeMap);
         expLV.setAdapter(expLVAdapter);
+
+        FloatingActionButton createNewMeal = (FloatingActionButton) fragmentView.findViewById(R.id.createNewMeal);
+        createNewMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "In editor", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), MealEditor.class);
+                getActivity().startActivity(intent);
+            }
+        });
 
         return fragmentView;
     }

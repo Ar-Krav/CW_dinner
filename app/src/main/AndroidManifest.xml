@@ -22,9 +22,11 @@
         <activity
             android:name=".mainpart.BaseAppActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".mainpart.orderingfood.OrderingConfirmationDialogActivity"
-                android:theme="@style/Theme.AppCompat.Dialog.Alert"
-                android:noHistory="true"/>
+        <activity
+            android:name=".mainpart.orderingfood.OrderingConfirmationDialogActivity"
+            android:noHistory="true"
+            android:theme="@style/Theme.AppCompat.Dialog.Alert" />
+        <activity android:name=".mainpart.adminpanel.MealEditor"></activity>
     </application>
 
 </manifest>
