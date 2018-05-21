@@ -9,13 +9,11 @@ public class MenuTable {
     public final static String FIELD_ID = "id";
     public final static String FIELD_MEAL_ID = "meal_id";
     public final static String FIELD_WEEK_DAY_ID = "week_day_id";
-    public final static String FIELD_ENABLED = "enabled";
 
     public final static String CREATION_QUERY= "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME +"(" +
             FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
             FIELD_MEAL_ID + " INTEGER(10) NOT NULL DEFAULT '0'," +
             FIELD_WEEK_DAY_ID + " INTEGER(10) NOT NULL DEFAULT '0'," +
-            //FIELD_ENABLED + " INTEGER(10) NOT NULL DEFAULT '0'," +
             "FOREIGN KEY ("+ FIELD_WEEK_DAY_ID +") REFERENCES "+ DaysOfWeekTable.TABLE_NAME +"("+ DaysOfWeekTable.FIELD_ID +") ON UPDATE CASCADE," +
             "FOREIGN KEY ("+ FIELD_MEAL_ID +") REFERENCES "+ MealsTable.TABLE_NAME +"("+ MealsTable.FIELD_ID +") ON DELETE CASCADE ON UPDATE CASCADE );";
 

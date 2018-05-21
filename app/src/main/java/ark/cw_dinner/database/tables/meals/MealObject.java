@@ -6,7 +6,7 @@ import java.util.List;
 public class MealObject implements Serializable{
     private int mealId;
     private String name;
-    private int cost;
+    private double cost;
     private String description;
     private String type;
     private List<String> availableInDays;
@@ -37,11 +37,11 @@ public class MealObject implements Serializable{
         this.name = name;
     }
 
-    public int getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 

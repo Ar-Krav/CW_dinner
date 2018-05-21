@@ -14,13 +14,13 @@ public class MealsTable {
     public final static String CREATION_QUERY= "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME +"(" +
             FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
             FIELD_NAME + " varchar(100) NOT NULL DEFAULT ''," +
-            FIELD_COST + " INTEGER(10) NOT NULL DEFAULT '0'," + /*TODO fix to decimal for coins!*/
+            FIELD_COST + " DECIMAL NOT NULL DEFAULT '0'," + /*TODO fix to decimal for coins!*/
             FIELD_DESCRIPTION + " varchar(255) DEFAULT ''," +
-            FIELD_TYPE + " INTEGER(10) NOT NULL," +
+            FIELD_TYPE + " INTEGER NOT NULL," +
             "  FOREIGN KEY ("+ FIELD_TYPE +") REFERENCES "+ MealsTypeTable.TABLE_NAME +" ("+ MealsTypeTable.FIELD_ID +") ON UPDATE CASCADE );";
 
     public final static String DEFAULT_VALUE_QUERY = "INSERT INTO "+ TABLE_NAME +"("+ FIELD_ID +", "+ FIELD_NAME +", "+ FIELD_COST +", "+ FIELD_DESCRIPTION +", "+ FIELD_TYPE +") VALUES" +
-            "(2, 'borsch with meat', 15, 'borshch with meat', 1)," +
+            "(2, 'borsch with meat', 15.43, 'borshch with meat', 1)," +
             "(3, 'cream soup with mushrooms', 15, 'taste soup', 1)," +
             "(4, 'soup with meat', 20, 'taste soup with meat', 1)," +
             "(5, 'grechka with meat', 25, 'grechka', 2)," +

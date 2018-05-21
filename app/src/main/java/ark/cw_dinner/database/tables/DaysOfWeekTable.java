@@ -4,7 +4,7 @@ public class DaysOfWeekTable {
     public final static String TABLE_NAME= "days_week";
 
     public final static String FIELD_ID= "id";
-    public final static String FIELD_DAY= "day";
+    public final static String FIELD_DAY= "day_name";
 
     public final static String CREATION_QUERY= "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME +"(" +
             FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +

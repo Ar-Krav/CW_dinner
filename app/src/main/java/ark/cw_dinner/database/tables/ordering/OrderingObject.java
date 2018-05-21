@@ -6,7 +6,7 @@ public class OrderingObject {
     private String userName;
     private MealObject meal;
     private int value;
-    private int cost;
+    private double cost;
     private String date;
 
     public OrderingObject() {}
@@ -43,11 +43,11 @@ public class OrderingObject {
         this.value = value;
     }
 
-    public int getCost() {
+    public double getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(double cost) {
         this.cost = cost;
     }
 

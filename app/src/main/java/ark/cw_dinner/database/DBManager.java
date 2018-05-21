@@ -148,7 +148,7 @@ public class DBManager extends SQLiteOpenHelper {
                 MealObject mealObject = new MealObject();
 
                 mealObject.setName(cursor.getString(0));
-                mealObject.setCost(cursor.getInt(1));
+                mealObject.setCost(cursor.getDouble(1));
                 mealObject.setDescription(cursor.getString(2));
                 mealObject.setType(cursor.getString(3));
 
@@ -204,7 +204,7 @@ public class DBManager extends SQLiteOpenHelper {
                 OrderingObject buferOrderingObj = userBuyMeals.get(orderingObj.getMeal().getMealId());
 
                 int newValue = buferOrderingObj.getValue() + orderingObj.getValue();
-                int newCost = buferOrderingObj.getCost() + orderingObj.getCost();
+                double newCost = buferOrderingObj.getCost() + orderingObj.getCost();
 
                 buferOrderingObj.setValue(newValue);
                 buferOrderingObj.setCost(newCost);
@@ -343,7 +343,7 @@ public class DBManager extends SQLiteOpenHelper {
 
                 mealObject.setMealId(cursor.getInt(0));
                 mealObject.setName(cursor.getString(1));
-                mealObject.setCost(cursor.getInt(2));
+                mealObject.setCost(cursor.getDouble(2));
                 mealObject.setDescription(cursor.getString(3));
                 mealObject.setType(cursor.getString(4));
 
@@ -390,13 +390,13 @@ public class DBManager extends SQLiteOpenHelper {
 
                 mealObject.setMealId(cursor.getInt(0));
                 mealObject.setName(cursor.getString(1));
-                mealObject.setCost(cursor.getInt(2));
+                mealObject.setCost(cursor.getDouble(2));
                 mealObject.setDescription(cursor.getString(3));
                 mealObject.setType(cursor.getString(4));
 
                 orderingObj.setMeal(mealObject);
                 orderingObj.setValue(cursor.getInt(5));
-                orderingObj.setCost(cursor.getInt(6));
+                orderingObj.setCost(cursor.getDouble(6));
                 orderingObj.setDate(cursor.getString(7));
 
                 orderingObjectList.add(orderingObj);

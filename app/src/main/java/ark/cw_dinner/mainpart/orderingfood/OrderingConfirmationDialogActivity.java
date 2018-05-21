@@ -67,8 +67,8 @@ public class OrderingConfirmationDialogActivity extends AppCompatActivity {
         };
     }
 
-    private int getTotalPrice(){
-        int totalPrice = 0;
+    private double getTotalPrice(){
+        double totalPrice = 0;
         for (OrderingObject orderingObject : OrderingFragment.selectedMeals.values()){
             totalPrice += orderingObject.getCost();
         }
