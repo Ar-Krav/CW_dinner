@@ -213,6 +213,9 @@ public class DBManager extends SQLiteOpenHelper {
 
                 userBuyMeals.put(buferOrderingObj.getMeal().getMealId(), buferOrderingObj);
             }
+            else{
+                userBuyMeals.put(orderingObj.getMeal().getMealId(), orderingObj);
+            }
         }
 
         String delQuery = "DELETE FROM " + OrderingTable.TABLE_NAME +
