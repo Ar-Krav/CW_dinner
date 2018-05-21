@@ -28,8 +28,6 @@ import ark.cw_dinner.utils.TagsValues;
 import ark.cw_dinner.utils.UtilService;
 
 public class DBManager extends SQLiteOpenHelper {
-    private String TEST_TAG = "DBManager_DEBUG_TEST";
-
     private Context context;
 
     private static final String DB_NAME = "cw_dinner_db";
@@ -218,13 +216,19 @@ public class DBManager extends SQLiteOpenHelper {
             }
         }
 
-        String delQuery = "DELETE FROM " + OrderingTable.TABLE_NAME +
-                " WHERE " + OrderingTable.FIELD_USER_ID + " = " + UtilService.getCurrentUserId(context) +
-                " AND " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + " = '" + UtilService.getCurrentDate() + "'";
-        dbManager.execSQL(delQuery);
-
         objectsToInsert.addAll(userBuyMeals.values());
-        dbManager.execSQL(getQueryInserOrderingObjects(objectsToInsert));
+
+        /*String delQuery = "DELETE FROM " + OrderingTable.TABLE_NAME +
+                " WHERE " + OrderingTable.FIELD_USER_ID + " = " + UtilService.getCurrentUserId(context) +
+                " AND " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + " = '" + UtilService.getCurrentDate() + "';";*/
+
+        dbManager.beginTransaction();
+            dbManager.execSQL(getQueryDelOrderingByDay());
+            dbManager.execSQL(getQueryInserOrderingObjects(objectsToInsert));
+
+        dbManager.setTransactionSuccessful();
+        dbManager.endTransaction();
+
         dbManager.close();
     }
 
@@ -474,5 +478,11 @@ public class DBManager extends SQLiteOpenHelper {
     private String parseMenuObjToQueryInsert(MenuObject menuItem){
         return "(" + menuItem.getMeal().getMealId() + ", " +
                 menuItem.getDayName() + ")";
+    }
+
+    private String getQueryDelOrderingByDay(){
+        return  "DELETE FROM " + OrderingTable.TABLE_NAME +
+                " WHERE " + OrderingTable.FIELD_USER_ID + " = " + UtilService.getCurrentUserId(context) +
+                " AND " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + " = '" + UtilService.getCurrentDate() + "';";
     }
 }
