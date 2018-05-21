@@ -237,10 +237,6 @@ public class DBManager extends SQLiteOpenHelper {
     public void upsertMealsAndMenu(MealObject mealItem, Boolean isUpdate){
         List<MenuObject> newMenuItemsList = new ArrayList<>();
 
-        //String upserMealQuery = isUpdate ? getQueryUpdateMealItem(mealItem) : getQueryInsertMealItem(mealItem);
-        /*String deleteMenuQuery = getQueryDelMenuItemByMeal(mealItem.getMealId());
-        String insertMenuQuery = getQueryInsertNewMenuItem(newMenuItemsList);*/
-
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
 
@@ -431,12 +427,6 @@ public class DBManager extends SQLiteOpenHelper {
                 orderingObj.getCost() + ", " +
                 "'" + orderingObj.getDate() + "')";
     }
-
-    /*private String getQueryInsertMealItem(MealObject mealItem){
-        return "INSERT INTO " + MealsTable.TABLE_NAME +
-                "( " + MealsTable.FIELD_NAME +", "+ MealsTable.FIELD_COST +", "+ MealsTable.FIELD_DESCRIPTION +", "+ MealsTable.FIELD_TYPE + ") " +
-                " VALUES ('" + mealItem.getName() + "', " + mealItem.getCost() + ", '" + mealItem.getDescription() + "', " + mealItem.getType() + ");";
-    }*/
 
     public long insertNewMeal(MealObject mealItem){
         SQLiteDatabase db = this.getWritableDatabase();

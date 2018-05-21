@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_ordering"
+    <item
+        android:id="@+id/nav_ordering"
+        android:icon="@drawable/ordering"
+        android:title="@string/nav_ordering" />
+    <item
+        android:id="@+id/nav_food_menu"
+        android:icon="@drawable/food_frag_all"
+        android:title="@string/nav_menu" />
 
-            android:title="@string/nav_ordering" />
-        <item
-            android:id="@+id/nav_food_menu"
-
-            android:title="@string/nav_menu" />
-
-        <item
-            android:id="@+id/nav_ordering_history"
-
-            android:title="@string/nav_history" />
-    </group>
+    <item
+        android:id="@+id/nav_ordering_history"
+        android:icon="@drawable/history"
+        android:title="@string/nav_history" />
 
     <item
         android:title="Admin settings"
@@ -24,7 +22,8 @@
             <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_admin_panel"
-                    android:title="@string/nav_admin_panel" />
+                    android:title="@string/nav_admin_panel"
+                    android:icon="@drawable/admin_with_cogwheels"/>
             </group>
         </menu>
     </item>
@@ -35,10 +34,8 @@
         <menu>
             <item
                 android:id="@+id/nav_about_program"
-                android:title="@string/nav_about" />
-            <item
-                android:id="@+id/nav_faq"
-                android:title="@string/nav_faq" />
+                android:title="@string/nav_about"
+                android:icon="@drawable/info"/>
         </menu>
     </item>
 

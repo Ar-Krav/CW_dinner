@@ -25,7 +25,7 @@ public class OrderingBaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fragmentView = inflater.inflate(R.layout.fragment_today_ordering_history, container, false);
+        View fragmentView = inflater.inflate(R.layout.fragment_basic_ordering, container, false);
 
         FloatingActionButton makeNewOrdering = (FloatingActionButton) fragmentView.findViewById(R.id.makeNewOrder);
         makeNewOrdering.setOnClickListener(getFloatBtnClickListener());

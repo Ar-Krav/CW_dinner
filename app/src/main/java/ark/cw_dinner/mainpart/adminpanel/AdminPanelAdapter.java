@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -119,7 +120,7 @@ public class AdminPanelAdapter extends BaseExpandableListAdapter {
         TextView descriptionLable = (TextView) convertView.findViewById(R.id.descriptionLabel);
         descriptionLable.setText(mealObj.getDescription());
 
-        Button delBtn = (Button) convertView.findViewById(R.id.delMealBtn);
+        ImageButton delBtn = (ImageButton) convertView.findViewById(R.id.delMealBtn);
         delBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,7 +152,7 @@ public class AdminPanelAdapter extends BaseExpandableListAdapter {
             }
         });
 
-        Button editBtn = (Button) convertView.findViewById(R.id.editMealBtn);
+        ImageButton editBtn = (ImageButton) convertView.findViewById(R.id.editMealBtn);
             editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

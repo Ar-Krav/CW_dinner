@@ -7,53 +7,67 @@
     android:padding="20px">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/nameLabel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textAlignment="center"
-            android:textSize="22sp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:background="@color/colorPrimaryDark"
-            android:layout_weight="1"
-            android:hint="Name"/>
-
-        <TextView
-            android:id="@+id/priceLabel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="16sp"
-            android:textAlignment="center"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:background="@color/colorAccent"
-            android:layout_weight="2"
-            android:hint="Price"/>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/aditionalInfoLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="17sp"
-        android:textAlignment="center"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:background="@color/colorPrimary"
-        android:hint="Available in days"/>
-
-    <TextView
-        android:id="@+id/descriptionLabel"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="17sp"
-        android:background="@color/colorPrimaryDark"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:hint="Description"/>
+        android:orientation="vertical"
+        android:padding="4dp"
+        android:background="@drawable/border_background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/nameLabel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/border_shape"
+                android:textColor="#FAF0E6"
+                android:layout_weight="1"
+                android:hint="Name"/>
+
+            <TextView
+                android:id="@+id/priceLabel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/border_shape"
+                android:textColor="#FAF0E6"
+                android:layout_weight="2"
+                android:hint="Price"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/aditionalInfoLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:textAlignment="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="#FAF0E6"
+            android:background="@drawable/border_shape"
+            android:hint="Available in days"/>
+
+        <TextView
+            android:id="@+id/descriptionLabel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="17sp"
+            android:background="@drawable/border_shape"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textColor="#FAF0E6"
+            android:hint="Description"/>
+    </LinearLayout>
+
 </LinearLayout>

@@ -2,94 +2,112 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="20px">
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/border_background"
+        android:padding="20px">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/nameLabel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/border_shape"
+                android:textColor="#FAF0E6"
+                android:layout_weight="1"
+                android:hint="Name"/>
+
+            <TextView
+                android:id="@+id/priceLabel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="16sp"
+                android:textAlignment="center"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/border_shape"
+                android:textColor="#FAF0E6"
+                android:layout_weight="2"
+                android:hint="Price"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/nameLabel"
+            android:id="@+id/aditionalInfoLabel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
             android:textAlignment="center"
-            android:textSize="22sp"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:background="@color/colorPrimaryDark"
-            android:layout_weight="1"
-            android:hint="Name"/>
+            android:background="@drawable/border_shape"
+            android:textColor="#FAF0E6"
+            android:hint="Available in days"/>
 
         <TextView
-            android:id="@+id/priceLabel"
+            android:id="@+id/descriptionLabel"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="16sp"
-            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:textSize="17sp"
+            android:background="@drawable/border_shape"
+            android:textColor="#FAF0E6"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:background="@color/colorAccent"
-            android:layout_weight="2"
-            android:hint="Price"/>
-    </LinearLayout>
+            android:hint="Description"/>
 
-    <TextView
-        android:id="@+id/aditionalInfoLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="17sp"
-        android:textAlignment="center"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:background="@color/colorPrimary"
-        android:hint="Available in days"/>
-
-    <TextView
-        android:id="@+id/descriptionLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="17sp"
-        android:background="@color/colorPrimaryDark"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:hint="Description"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="Portions:"/>
-
-        <EditText
-            android:id="@+id/portionNumberLabel"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="50"
-            android:text="0"
-            android:textAlignment="center"
-            android:inputType="number" />
-
-        <Button
-            android:id="@+id/addNewPortion"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Add"/>
+            android:orientation="horizontal"
+            android:background="@drawable/border_shape">
 
-        <Button
-            android:id="@+id/delOnePortion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="DEL"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="Portions:"
+                android:textColor="#FAF0E6"/>
+
+            <EditText
+                android:id="@+id/portionNumberLabel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="#FAF0E6"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/addNewPortion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#FAF0E6"
+                android:text="Add"/>
+
+            <Button
+                android:id="@+id/delOnePortion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#FAF0E6"
+                android:text="DEL"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

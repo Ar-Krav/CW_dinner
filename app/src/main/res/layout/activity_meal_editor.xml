@@ -5,20 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/border_background"
     tools:context="ark.cw_dinner.mainpart.adminpanel.MealEditor">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"
+        android:textSize="30dp"
         android:layout_marginBottom="50dp"
-        android:text="Meal editor"/>
+        android:textColor="#FAF0E6"
+        android:background="@drawable/border_shape"
+        android:gravity="center"
+        android:text="Meal Editor"/>
 
     <EditText
         android:id="@+id/meal_name_field"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:textColor="#FAF0E6"
+        android:background="@drawable/border_shape"
         android:inputType="textPersonName"
         android:hint="Meal name" />
 
@@ -86,20 +92,27 @@
             android:id="@+id/mealTypeSpinner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="#FAF0E6"
+            android:background="@drawable/border_shape"
             android:layout_weight="1" />
         <EditText
             android:id="@+id/meal_cost_field"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:inputType="number"
             android:layout_weight="2"
+            android:textColor="#FAF0E6"
+            android:background="@drawable/border_shape"
             android:hint="Cost"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textSize="24dp"
+            android:textColor="#FAF0E6"
+            android:background="@drawable/border_shape"
             android:layout_weight="2"
+            android:gravity="center"
             android:text="UAH"/>
     </LinearLayout>
 
@@ -110,6 +123,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:layout_weight="1"
+        android:textColor="#FAF0E6"
+        android:background="@drawable/border_shape"
         android:hint="description"/>
 
     <LinearLayout
