@@ -218,10 +218,6 @@ public class DBManager extends SQLiteOpenHelper {
 
         objectsToInsert.addAll(userBuyMeals.values());
 
-        /*String delQuery = "DELETE FROM " + OrderingTable.TABLE_NAME +
-                " WHERE " + OrderingTable.FIELD_USER_ID + " = " + UtilService.getCurrentUserId(context) +
-                " AND " + OrderingTable.TABLE_NAME + "." + OrderingTable.FIELD_ORDER_DATE + " = '" + UtilService.getCurrentDate() + "';";*/
-
         dbManager.beginTransaction();
             dbManager.execSQL(getQueryDelOrderingByDay());
             dbManager.execSQL(getQueryInserOrderingObjects(objectsToInsert));
